@@ -1,0 +1,3 @@
+<!--pages/home/goods/goods.wxml-->
+
+<cu-custom bgColor="bg-yellow" isCustom="{{true}}"><view slot="content">商品详情</view></cu-custom>

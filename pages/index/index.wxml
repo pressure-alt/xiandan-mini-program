@@ -1,0 +1,30 @@
+
+<home class="fragment" wx:if="{{PageCur=='home'}}"></home>
+<classif wx:if="{{PageCur=='classif'}}"></classif>
+<info wx:if="{{PageCur=='info'}}"></info>
+<my wx:if="{{PageCur=='my'}}"></my>
+<view class="cu-bar tabbar shadow bg-white foot">
+    <view class="action {{PageCur=='home'?'text-yellow':'text-gray'}}"bindtap="NavChange" data-cur="home">
+      <view class="cuIcon-homefill"></view> 首页
+    </view>
+    <view class="action {{PageCur=='classif'?'text-yellow':'text-gray'}}"bindtap="NavChange" data-cur="classif">
+      <view class="cuIcon-similar"></view> 分类
+    </view>
+    <view class="action text-gray add-action" >
+      <button class="cu-btn cuIcon-add bg-yellow shadow" bindtap="addGoods"></button>
+      发布
+    </view>
+    <view class="action {{PageCur=='info'?'text-yellow':'text-gray'}}" bindtap="NavChange" data-cur="info">
+      <view class="cuIcon-message" >
+      
+        <view class="cu-tag badge">2</view>
+      </view>
+      消息
+    </view>
+    <view class="action {{PageCur=='my'?'text-yellow':'text-gray'}}"bindtap="NavChange" data-cur="my">
+      <view class="cuIcon-my">
+        <view class="cu-tag badge"></view>
+      </view>
+      我的
+    </view>
+  </view>

@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@vant/weapp": "^1.10.3",
+    "apifm-wxapi": "^3.54.2"
+  },
+  "devDependencies": {
+    "miniprogram-api-typings": "^3.4.6"
+  }
+}

@@ -1,0 +1,10 @@
+{
+    
+  "usingComponents": {
+    "cu-custom":"../../colorui/components/cu-custom",
+    "home":"../home/home/home",
+    "classif":"../classif/classif",
+    "info":"../info/info",
+    "my":"../my/my"
+  }
+}

@@ -1,0 +1,46 @@
+<!--pages/addgoods/addgoods.wxml-->
+<cu-custom bgColor="bg-yellow" isCustom="{{true}}">
+    <view slot="content">商品详情</view>
+</cu-custom>
+
+<form catchsubmit="formSubmit" catchreset="formReset">
+    <view class="cu-form-group">
+
+        <input placeholder="简介" name="title"></input>
+
+    </view>
+    <view class="cu-form-group">
+
+        <textarea placeholder="详情" name="info"></textarea>
+
+    </view>
+
+    <view class="cu-bar bg-white margin-top">
+        <view class="action">
+            图片上传
+        </view>
+        <view class="action">
+            {{imgList.length}}/4
+        </view>
+    </view>
+    <view class="cu-form-group">
+        <view class="grid col-4 grid-square flex-sub">
+            <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+                <image src='{{imgList[index]}}' mode='aspectFill'></image>
+                <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+                    <text class="cuIcon-close"></text>
+                </view>
+            </view>
+            <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<4}}">
+                <text class="cuIcon-cameraadd"></text>
+            </view>
+        </view>
+
+    </view>
+    <view class="padding flex flex-direction">
+        <button class="cu-btn bg-yellow margin-tb-sm lg" form-type="submit">提交</button>
+        <button class="cu-btn margin-tn-sm lg round line text-blue" form-type="reset">重置</button>
+    </view>
+
+
+</form>

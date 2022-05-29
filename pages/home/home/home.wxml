@@ -1,0 +1,40 @@
+<view class="list">
+<swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+   
+        <swiper-item wx:for="{{swiperList}}" wx:key>
+            <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+        </swiper-item>
+</swiper>
+
+<view wx:for="{{swiperList}}" wx:key>
+    <view class="cu-card case {{isCard?'no-card':''}} " >
+        <view class="cu-item shadow">
+            <view class="image" bindtap="goodDetails">
+                <image src="{{}}" mode="widthFix"></image>
+                <view class="cu-tag bg-blue">全新</view>
+
+            </view>
+            <view class="cu-list menu-avatar">
+                <view class="cu-bar">
+                    <text class="text-cut text-bold margin-left margin-right text-xl">Aj篮球鞋</text>
+                </view>
+                <view class="cu-item">
+                    <view class="cu-avatar round lg" style="background-image:url(https://dcdn.it120.cc/2022/05/26/3dfeabc1-cbb4-40f7-8676-8ae815704757.jpg);"></view>
+                    <view class="content flex-sub">
+                        <view class="text-grey">卖家{{sellerid}}</view>
+                        <view class="text-gray text-sm flex justify-between">
+                            时间{{time}}
+                            <view class="text-gray text-sm">
+                                <text class="cuIcon-attentionfill margin-lr-xs"></text> 10
+                                <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
+                                <text class="cuIcon-messagefill margin-lr-xs"></text> 30
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="cu-tabbar-height"></view>
+</view>
