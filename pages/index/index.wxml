@@ -1,8 +1,8 @@
 
-<home class="fragment" wx:if="{{PageCur=='home'}}"></home>
-<classif wx:if="{{PageCur=='classif'}}"></classif>
-<info wx:if="{{PageCur=='info'}}"></info>
-<my wx:if="{{PageCur=='my'}}"></my>
+<home class="{{PageCur=='home'?'':'hidden'}}"></home>
+<classif class="{{PageCur=='classif'?'':'hidden'}}"></classif>
+<info class="{{PageCur=='info'?'':'hidden'}}"></info>
+<my class="{{PageCur=='my'?'':'hidden'}}"></my>
 <view class="cu-bar tabbar shadow bg-white foot">
     <view class="action {{PageCur=='home'?'text-yellow':'text-gray'}}"bindtap="NavChange" data-cur="home">
       <view class="cuIcon-homefill"></view> 首页

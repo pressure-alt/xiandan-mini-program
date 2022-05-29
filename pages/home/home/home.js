@@ -14,7 +14,26 @@ Page({
           id: 0,
           type: 'image',
           url: 'cloud://test-7grxiqxxae2c11ff.7465-test-7grxiqxxae2c11ff-1311090620/QQ图片20220528211747.jpg'
-        }],
+        },{
+            id: 1,
+            type: 'image',
+            url: 'cloud://test-7grxiqxxae2c11ff.7465-test-7grxiqxxae2c11ff-1311090620/swiper2.webp'
+          }],
+        goodsList:[{
+            id:2,
+            title:"AJ篮球鞋",
+            info:"sss",
+            url:"cloud://test-7grxiqxxae2c11ff.7465-test-7grxiqxxae2c11ff-1311090620/mAz1gInmkd9g70f8056695fafa7497059cbf07f11be0.jpg",
+            price:"999"
+        },
+        {
+            id:1,
+            title:"iphone11",
+            info:"sss",
+            url:"cloud://test-7grxiqxxae2c11ff.7465-test-7grxiqxxae2c11ff-1311090620/dweQKnypQumj054546d0aee79b66000886c4f27df71e.jpg",
+            price:"4899"
+        }
+    ]
       },
 
     /**
@@ -36,9 +55,9 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-        console.log(this.data.goodsRecommend)
-        db=wx.cloud.database()
-        db.colllection('commdity').get().then(res=>console.log(res))
+   console.log(this.data.goodsRecommend)
+          db=wx.cloud.database()
+          db.colllection('commdity').get().then(res=>console.log(res))
     },
 
     /**

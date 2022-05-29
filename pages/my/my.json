@@ -1,7 +1,8 @@
 {
     "usingComponents": {
         "van-cell": "@vant/weapp/cell/index",
-        "van-cell-group": "@vant/weapp/cell-group/index"
+        "van-cell-group": "@vant/weapp/cell-group/index",
+        "van-button": "@vant/weapp/button/index"
     },
     "navigationBarTitleText": "会员中心",
     "component": true

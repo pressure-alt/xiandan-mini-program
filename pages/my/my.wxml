@@ -1,12 +1,22 @@
-
+<cu-custom bgColor="bg-yellow" isCustom="{{true}}"><view slot="content">商品详情</view></cu-custom>
 <block>
-  <view class="header-box">
-    <image class="avatar" src="{{ apiUserInfoMap.base.avatarUrl }}" mode="aspectFill"></image>
+    <block class="bg">
+
+
+
+  <view class="header-box" wx:if="{{hasUserInfo}}">
+      <view class="userinfo-avatar">
+    <open-data type="userAvatarUrl"></open-data></view>
     <view class="r">
-      <view class="uid">用户ID: {{ apiUserInfoMap.base.id }}</view>
+        <open-data type="userNickName"></open-data>
       <view class="nick">{{ apiUserInfoMap.base.nick }}</view>
     </view>
   </view>
+  <block wx:elif="{{!hasUserInfo}}">
+            <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
+            <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+            <view wx:else> 请使用1.4.4及以上版本基础库 </view>
+        </block>
   <view class="asset">
     <view class='item' bindtap='goAsset'>
       <view class="amount">{{balance}}</view>
@@ -22,6 +32,7 @@
     </view>
 
   </view>
+</block>
   <view class="space van-hairline--bottom"></view>
 
   <van-cell title="我的订单" value="更多" is-link url="/pages/my/order-list" />

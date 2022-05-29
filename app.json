@@ -18,7 +18,8 @@
         "navigationBarTextStyle": "white"
     },
     "usingComponents": {
-        "cu-custom": "/colorui/components/cu-custom"
+        "cu-custom": "/colorui/components/cu-custom",
+        "van-button": "@vant/weapp/button/index"
     },
     "sitemapLocation": "sitemap.json"
 }

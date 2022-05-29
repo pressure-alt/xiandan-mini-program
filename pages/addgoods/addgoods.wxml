@@ -1,6 +1,6 @@
 <!--pages/addgoods/addgoods.wxml-->
 <cu-custom bgColor="bg-yellow" isCustom="{{true}}">
-    <view slot="content">商品详情</view>
+    <view slot="content">发布闲置</view>
 </cu-custom>
 
 <form catchsubmit="formSubmit" catchreset="formReset">
@@ -14,7 +14,11 @@
         <textarea placeholder="详情" name="info"></textarea>
 
     </view>
+    <view class="cu-form-group">
+<view class="title text-bold text-red" name="price">￥</view>
+<input name="price" class="price" />
 
+</view>
     <view class="cu-bar bg-white margin-top">
         <view class="action">
             图片上传

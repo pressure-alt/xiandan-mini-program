@@ -136,3 +136,13 @@ page,view,image,input {
 .login-box .btn {
   margin: 88rpx 32rpx;
 }
+.userinfo-avatar {
+    overflow: hidden;
+    width: 128rpx;
+    height: 128rpx;
+    margin: 20rpx;
+    border-radius: 50%;
+}
+.bg{
+    background: url("cloud://test-7grxiqxxae2c11ff.7465-test-7grxiqxxae2c11ff-1311090620/background.webp");
+}
