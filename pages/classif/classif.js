@@ -21,10 +21,11 @@ Component({
     },
     lifetimes: {
         attached: function () {
+         
             wx.showShareMenu({
                 withShareTicket: true
               })
-              console.log(wx.getStorageSync('userinfo'))
+           
               this.setData({
                 categoryMod: wx.getStorageSync('categoryMod')
               })

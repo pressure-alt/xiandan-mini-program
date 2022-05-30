@@ -8,11 +8,11 @@ Page({
      */
     data: {
         formdata: {
-            title:'',
-            info:'',
-            price:'',
-            location:'',
-            imgSrcList:[],
+            title: '',
+            info: '',
+            price: '',
+            location: '',
+            imgSrcList: [],
         },
         imgList: [],
 
@@ -108,80 +108,111 @@ Page({
             imgList: this.data.imgList
         })
     },
-    checkFormEmpty(res){
+    checkFormEmpty(res) {
 
-        if(res.detail.value.title.trim()==''||res.detail.value.info.trim()==''||res.detail.value.price.trim()==''){
+        if (res.detail.value.title.trim() == '' || res.detail.value.info.trim() == '' || res.detail.value.price.trim() == '') {
             return true
         }
 
         return false
     },
     formSubmit(res) {
-       
-          if(this.checkFormEmpty(res)){
-              wx.showModal({
-                showCancel:false,
-                content: '简介和详情不能为空',
-                title: '请填写完整',
-                
-                complete:()=>{
-                    return 
-                }
-              })
-          }
-else{
-           wx.showLoading({
-            title: '',
-          });
-        console.log(res)
+        console.log("submit")
         var data = {
             title: res.detail.value.title,
             info: res.detail.value.info,
             price: res.detail.value.price,
             imgList: this.data.imgList
         }
-        
+        if (this.checkFormEmpty(res)) {
+            wx.showModal({
+                showCancel: false,
+                content: '简介和详情不能为空',
+                title: '请填写完整',
+
+                complete: () => {
+                    return
+                }
+            })
+        }
+        else {
+            wx.showLoading({
+                title: '',
+            });
+            console.log(res)
+
+
+        }
+        this.submitImg(res).then(res => {
+            console.log(res)
+            wx.cloud.init({
+                env: "test-7grxiqxxae2c11ff",
+            })
+            let db = wx.cloud.database() 
+             db.collection("commodity").add({
+            data: res
+        })
+        })
+
+
+        wx.hideLoading();
+
+
+      
+
+        //     wx.showModal({
+
+        //       confirmColor: 'confirmColor',
+        //       confirmText: 'confirmText',
+        //       content: '上传成功',
+        //       placeholderText: 'placeholderText',
+        //       showCancel: false,
+        //       title: '成功',
+        //       success: (result) => {},
+        //       fail: (res) => {},
+        //       complete: (res) => {},
+        //     })
+    }
+
+    ,
+    async submitImg(res) {
+        var data = {
+            title: res.detail.value.title,
+            info: res.detail.value.info,
+            price: res.detail.value.price,
+            imgList: this.data.imgList
+        }
+
         for (let i in data.imgList) {
             console.log(data.imgList[i].substr(11))
             wx.cloud.uploadFile({
-                cloudPath:data.imgList[i].substr(11),
-                filePath:data.imgList[i],
+                cloudPath: data.imgList[i].substr(11),
+                filePath: data.imgList[i],
                 config: {
                     env: this.data.envId
-                  }
-            }).then(res=>{
+                }
+            }).then(res => {
                 console.log('上传成功', res);
                 this.setData({
-                    formdata:{
-                  haveGetImgSrc: true,
-                  imgSrcList:this.data.formdata.imgSrcList.concat(res.fileID) 
-                }
+                    formdata: {
+                        haveGetImgSrc: true,
+                        imgSrcList: this.data.formdata.imgSrcList.concat(res.fileID)
+                    },
+
                 });
-              
-              }).catch((e) => {
+                data.imgList = this.data.formdata
+                console.log(this.data.formdata)
+                return data
+            }).catch((e) => {
                 console.log(e);
-                
+
             })
-        }wx.hideLoading();
-        wx.showModal({
+            
+        }
+    },
+    submitToDB(e) {
+        let form = this.data.formdata
+        console.log(form)
 
-          confirmColor: 'confirmColor',
-          confirmText: 'confirmText',
-          content: '上传成功',
-          placeholderText: 'placeholderText',
-          showCancel: false,
-          title: '成功',
-          success: (result) => {},
-          fail: (res) => {},
-          complete: (res) => {},
-        })
     }
-    
-    }
-,
- submitToDB(e){
-     let form = this.data.formdata
-     console.log(form)
-
- }
 })

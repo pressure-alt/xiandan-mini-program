@@ -1,8 +1,6 @@
-<cu-custom bgColor="bg-yellow" isCustom="{{true}}"><view slot="content">商品详情</view></cu-custom>
+<cu-custom bgColor="bg-yellow" isCustom="{{false}}"><view slot="content">我的</view></cu-custom>
 <block>
     <block class="bg">
-
-
 
   <view class="header-box" wx:if="{{hasUserInfo}}">
       <view class="userinfo-avatar">

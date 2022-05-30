@@ -56,8 +56,8 @@ Page({
      */
     onShow() {
    console.log(this.data.goodsRecommend)
-          db=wx.cloud.database()
-          db.colllection('commdity').get().then(res=>console.log(res))
+        //  var db=wx.cloud.database()
+        //   db.colllection('commdity').get().then(res=>console.log(res))
     },
 
     /**
