@@ -11,7 +11,14 @@ App({
             env: "test-7grxiqxxae2c11ff",
         })
         
-                
+       wx.request({
+            url:"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx75f01b18b5b42af9&secret=da8dffbceb895b7080c4eaf2c2cb316e",
+            method:'post',
+success(res){
+   wx.setStorageSync('token', res.data.access_token)
+}
+        })
+
 
         WXAPI.queryConfigBatch('mallName,WITHDRAW_MIN,ALLOW_SELF_COLLECTION,order_hx_uids,subscribe_ids,share_profile,adminUserIds,goodsDetailSkuShowType,shopMod,needIdCheck,balance_pay_pwd,shipping_address_gps,shipping_address_region_level,shopping_cart_vop_open,cps_open,recycle_open,categoryMod,hide_reputation,show_seller_number,show_goods_echarts,show_buy_dynamic,goods_search_show_type,show_3_seller,show_quan_exchange_score,show_score_exchange_growth,show_score_sign,fx_subscribe_ids,share_pic,orderPeriod_open,order_pay_user_balance,wxpay_api_url,sphpay_open,fx_type').then(res => {
             if (res.code == 0) {

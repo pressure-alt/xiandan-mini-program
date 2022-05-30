@@ -1,7 +1,8 @@
 {
     "pages": [
-       
-        "pages/home/home/home", "pages/index/index",
+
+        "pages/home/home/home",
+        "pages/index/index",
         "pages/logs/logs",
         "pages/info/info",
         "pages/my/my",
@@ -12,33 +13,39 @@
         "pages/my/order-list"
     ],
     "tabBar": {
-      "color": "#000000",
-    
-      "list": [
-        {
-         "pagePath": "pages/home/home/home",
-          "text": "url(//at.alicdn.com/t/font_533566_yfq2d9wdij.eot?t=1545239985831#iefix)"
-        },
-        {
-        
-          "pagePath": "pages/classif/classif",
-          "text": "分类"
-        },
-        {
-          "pagePath": "pages/addgoods/addgoods",
-          "text": "发布"
-        },
-        {
-          
-          "pagePath": "pages/info/info",
-          "text": "消息"
-        },
-        {
-        
-          "pagePath": "pages/my/my",
-          "text": "我的"
-        }
-      ]
+        "color": "#000000",
+        "selectedColor": "#fbbd08",
+        "list": [{
+                "iconPath": "/images/home.png",
+                "selectedIconPath": "/images/home (2).png",
+                "pagePath": "pages/home/home/home",
+                "text": "首页"
+            },
+            {
+                "iconPath": "/images/list.png",
+                "selectedIconPath": "/images/list (2).png",
+                "pagePath": "pages/classif/classif",
+                "text": "分类"
+            },
+            {
+                "iconPath": "/images/add.png",
+                "selectedIconPath": "/images/add (2).png",
+                "pagePath": "pages/addgoods/addgoods",
+                "text": "发布"
+            },
+            {
+                "iconPath": "/images/message.png",
+                "selectedIconPath": "/images/message (2).png",
+                "pagePath": "pages/info/info",
+                "text": "消息"
+            },
+            {
+                "iconPath": "/images/My.png",
+                "selectedIconPath": "/images/My (2).png",
+                "pagePath": "pages/my/my",
+                "text": "我的"
+            }
+        ]
     },
     "window": {
         "backgroundTextStyle": "light",

@@ -1,5 +1,10 @@
-const WXAPI = require('apifm-wxapi')
-// pages/addgoods/addgoods.js
+const app = getApp()
+let QQMapWX = require('../../libs/qqmap-wx-jssdk')
+let qqmapsdk;
+
+const {
+    formatTime
+} = require('../../utils/util');
 
 Page({
 
@@ -15,6 +20,7 @@ Page({
             imgSrcList: [],
         },
         imgList: [],
+        address_component: {}
 
     },
 
@@ -22,11 +28,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        console.log(wx.getStorageSync('userinfo'))
-        const db = wx.cloud.database()
-        db.collection('goods').add({
-            data: {}
-        })
+
+
+
     },
 
     /**
@@ -79,7 +83,7 @@ Page({
     },
     ChooseImage() {
         wx.chooseImage({
-            count: 4, //默认9
+            count: 1, //默认9
             sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album'], //从相册选择
             success: (res) => {
@@ -110,84 +114,79 @@ Page({
     },
     checkFormEmpty(res) {
 
-        if (res.detail.value.title.trim() == '' || res.detail.value.info.trim() == '' || res.detail.value.price.trim() == '') {
+        if (res.detail.value.title.trim() == '' || res.detail.value.info.trim() == '' || res.detail.value.price.trim() == '' || this.data.imgList.length == 0) {
             return true
         }
 
         return false
     },
+    getLocation() {
+        var that = this
+        qqmapsdk = new QQMapWX({
+            key: '5SIBZ-PHB6W-OEOR5-RKSN3-L5BFK-Q6FAF' //之前在腾讯平台申请到的key
+        })
+
+        wx.getLocation({ //获取定位地址经纬度
+
+            type: 'wgs84',
+            success(res) {
+                const latitude = res.latitude
+                const longitude = res.longitude
+                const speed = res.speed
+                const accuracy = res.accuracy
+                var that2 = this
+                qqmapsdk.reverseGeocoder({ //SDK调用
+                    location: {
+                        latitude,
+                        longitude
+                    },
+                    success: (res) => {
+                        //success方法指向闭包，所以this属于闭包,所以在success回调函数里是不能直接使用this.setData()的  
+                        //可以通过外面将this赋值给其它变量,也可通过promise二次封装,避免回调地狱
+
+                        that.setData({
+                            address_component: res.result.address_component
+                        })
+                        wx.setStorageSync('location', res)
+                    }
+
+                })
+            }
+        })
+    },
     formSubmit(res) {
         console.log("submit")
-        var data = {
+        let data = {
             title: res.detail.value.title,
             info: res.detail.value.info,
-            price: res.detail.value.price,
+            price: res.detail.value.price.trim(),
+            userInfo: wx.getStorageSync('userInfo'),
+            address: this.data.address_component,
+            date: formatTime(new Date),
             imgList: this.data.imgList
         }
+        console.log(data)
         if (this.checkFormEmpty(res)) {
             wx.showModal({
                 showCancel: false,
-                content: '简介和详情不能为空',
+                content: '简介、详情、价格和图片不能为空',
                 title: '请填写完整',
 
                 complete: () => {
                     return
                 }
             })
-        }
-        else {
+        } else {
             wx.showLoading({
                 title: '',
             });
-            console.log(res)
+
+            const db = wx.cloud.database()
 
 
-        }
-        this.submitImg(res).then(res => {
-            console.log(res)
-            wx.cloud.init({
-                env: "test-7grxiqxxae2c11ff",
-            })
-            let db = wx.cloud.database() 
-             db.collection("commodity").add({
-            data: res
-        })
-        })
-
-
-        wx.hideLoading();
-
-
-      
-
-        //     wx.showModal({
-
-        //       confirmColor: 'confirmColor',
-        //       confirmText: 'confirmText',
-        //       content: '上传成功',
-        //       placeholderText: 'placeholderText',
-        //       showCancel: false,
-        //       title: '成功',
-        //       success: (result) => {},
-        //       fail: (res) => {},
-        //       complete: (res) => {},
-        //     })
-    }
-
-    ,
-    async submitImg(res) {
-        var data = {
-            title: res.detail.value.title,
-            info: res.detail.value.info,
-            price: res.detail.value.price,
-            imgList: this.data.imgList
-        }
-
-        for (let i in data.imgList) {
-            console.log(data.imgList[i].substr(11))
             wx.cloud.uploadFile({
-                cloudPath: data.imgList[i].substr(11),
-                filePath: data.imgList[i],
+                cloudPath: data.imgList[0].substr(11),
+                filePath: data.imgList[0],
                 config: {
                     env: this.data.envId
                 }
@@ -200,15 +199,53 @@ Page({
                     },
 
                 });
-                data.imgList = this.data.formdata
+                data.imgList = this.data.formdata.imgSrcList
                 console.log(this.data.formdata)
-                return data
+                db.collection("commodity").add({
+                    data: data
+                }).then(res => {
+                    wx.hideLoading();
+                    wx.showModal({
+                        showCancel: false,
+                        content: '上传成功',
+                        placeholderText: 'placeholderText',
+                        title: '成功',
+                        success: (result) => {
+                            this.formReset()
+                        },
+
+                    })
+                })
+
             }).catch((e) => {
                 console.log(e);
+                wx.hideLoading();
+                wx.showModal({
+                    showCancel: false,
+                    content: '上传失败',
+                    placeholderText: 'placeholderText',
+                    title: '失败',
 
+
+                })
             })
-            
+
+
+
+
+
+
+
+
+
         }
+    }
+
+    ,
+    formReset() {
+        this.setData({
+            imgList: []
+        })
     },
     submitToDB(e) {
         let form = this.data.formdata

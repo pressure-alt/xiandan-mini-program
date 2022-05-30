@@ -1,1 +1,5 @@
 /* pages/addgoods/addgoods.wxss */
+.price{
+    max-lines: 1;
+    
+}

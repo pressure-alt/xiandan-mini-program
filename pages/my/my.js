@@ -1,5 +1,5 @@
 
-Component({
+Page({
     data: {
     balance:0.00,
     freeze:0,
@@ -22,17 +22,9 @@ Component({
     canIUseGetUserProfile: true,
     canIUseOpenData: false
   },
-  lifetimes: {
-    attached: function() {
-      // 在组件实例进入页面节点树时执行
-      console.log(1)
-    },
-    detached: function() {
-      // 在组件实例被从页面节点树移除时执行
-      console.log(2)
-    },
-  },
-  methods:{
+  
+
+
     getUserProfile(e) {
         // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
        
@@ -60,8 +52,8 @@ Component({
           fx_type: wx.getStorageSync('fx_type'),
         })
       },
-  }
-})
+}
+)
 // Page({
 	
 //   getUserProfile(e) {
