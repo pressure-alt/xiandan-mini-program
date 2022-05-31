@@ -144,5 +144,4 @@ page,view,image,input {
     border-radius: 50%;
 }
 .bg{
-    background: url("cloud://test-7grxiqxxae2c11ff.7465-test-7grxiqxxae2c11ff-1311090620/background.webp");
 }

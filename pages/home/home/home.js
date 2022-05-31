@@ -40,7 +40,15 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad() {
-
+        wx.cloud.init()
+        const cloud=wx.cloud
+        cloud.callFunction({
+            name:"add",
+            a:1,
+            b:2,
+        }).then(res=>{
+            console.log(res)
+        })
        
     },
 
@@ -56,8 +64,7 @@ Page({
      */
     onShow() {
    console.log(this.data.goodsRecommend)
-        //  var db=wx.cloud.database()
-        //   db.colllection('commdity').get().then(res=>console.log(res))
+
     },
 
     /**
