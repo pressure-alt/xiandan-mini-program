@@ -10,7 +10,7 @@
     <view class="cu-card width case no-card " >
         <view class="cu-item shadow">
             <view class="image" bindtap="goodDetails">
-                <image src="{{item.url}}" mode="widthFix"></image>
+                <image src="{{item.imgList[0]}}" mode="aspectFill" lazy-load="true"></image>
                 <view class="cu-tag bg-blue">全新</view>
 
             </view>
@@ -22,15 +22,15 @@
                     <text class="text-cut text-bold margin-left margin-right text-xl">{{item.title}}</text>
                 </view>
                 <view class="cu-item">
-                    <view class="cu-avatar round lg" style="background-image:url(https://dcdn.it120.cc/2022/05/26/3dfeabc1-cbb4-40f7-8676-8ae815704757.jpg);"></view>
+                    <view class="cu-avatar round lg" style="background-image:url({{item.userInfo.avatarUrl}});"></view>
                     <view class="content flex-sub">
-                        <view class="text-grey flex justify-between">卖家{{sellerid}}
+                        <view class="text-grey flex justify-between">{{item.userInfo.nickName}}
                         <view class="text-red text-bold text-xxl">
                         ￥{{item.price}}
                         </view>
                         </view>
                         <view class="text-gray text-sm flex justify-between">
-                            时间{{time}}
+                            {{item.date}}
                             <view class="text-gray text-sm">
                                 <text class="cuIcon-attentionfill margin-lr-xs"></text> 10
                                 <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
@@ -43,5 +43,7 @@
         </view>
     </view>
 </view>
-<view class="cu-tabbar-height"></view>
+<view></view>
+<van-divider contentPosition="center" wx:if="{{isLastPage}}">没有更多了哦</van-divider>
+
 </view>
