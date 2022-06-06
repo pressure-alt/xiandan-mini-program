@@ -1,4 +1,4 @@
-const WXAPI = require('apifm-wxapi')
+
 const app = getApp()
 
 Page({
@@ -50,9 +50,10 @@ Page({
         view.fields({
           size: true
         }, data => {
+            console.log(data)
           list[i].top = tabHeight;
           tabHeight = tabHeight + data.height;
-          list[i].bottom = tabHeight;     
+          list[i].bottom = tabHeight;
         }).exec();
       }
       that.setData({

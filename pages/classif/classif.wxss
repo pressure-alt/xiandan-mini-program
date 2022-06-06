@@ -36,3 +36,15 @@
   .VerticalMain{
     background-color: #f1f1f1;
   }
+  .card{
+      width: 100%;
+      display: flex;
+      background-color: #fff;
+  }
+  .card.text{
+
+  }
+  .card .img{
+      height: 200rpx;
+      width: 200rpx;
+  }

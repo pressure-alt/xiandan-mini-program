@@ -1,12 +1,12 @@
 {
     "pages": [
-
+"pages/classif/classif",
         "pages/home/home/home",
         "pages/index/index",
         "pages/logs/logs",
         "pages/info/info",
         "pages/my/my",
-        "pages/classif/classif",
+        
         "pages/home/goods/goods",
         "components/searchbar",
         "pages/addgoods/addgoods",

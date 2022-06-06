@@ -7,9 +7,9 @@
 </swiper>
 
 <view wx:for="{{goodsList}}" wx:key="id">
-    <view class="cu-card width case no-card " >
+    <view class="cu-card width case no-card "  >
         <view class="cu-item shadow">
-            <view class="image" bindtap="goodDetails">
+            <view class="image" bindtap="goodDetails" data-id="{{index}}">
                 <image src="{{item.imgList[0]}}" mode="aspectFill" lazy-load="true"></image>
                 <view class="cu-tag bg-blue">全新</view>
 
@@ -43,7 +43,6 @@
         </view>
     </view>
 </view>
-<view></view>
 <van-divider contentPosition="center" wx:if="{{isLastPage}}">没有更多了哦</van-divider>
 
 </view>

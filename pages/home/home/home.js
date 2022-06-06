@@ -77,18 +77,17 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh() {
-      wx.startPullDownRefresh()
+        wx.showNavigationBarLoading()
+
         wx.cloud.callFunction({
             name:"show",
-           config:{
-            env:options.envId
-            },
-                    
         }).then(res=>{
             console.log(res)
             this.setData({
                 goodsList:res.result.data
             })
+            wx.hideNavigationBarLoading();//完成停止加载
+            wx.stopPullDownRefresh();
         })
     },
 
@@ -102,13 +101,14 @@ Page({
         })
     },
     goodDetails(e){
+        console.log(e)
         
-        wx.navigateTo({
-          url: '../goods/goods',
-        })
+        // wx.navigateTo({
+        //   url: '../goods/goods'+"",
+        // })
     }
     ,
-   NavChange( e) {
+   NavChange(e) {
         this.setData({
           PageCur: e.currentTarget.dataset.cur
         })

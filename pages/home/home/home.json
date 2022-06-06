@@ -2,5 +2,6 @@
     "usingComponents": {
 
     },
-    "component": true
+    "component": true,
+    "enablePullDownRefresh": true
 }

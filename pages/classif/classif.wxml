@@ -1,27 +1,33 @@
 <view class='cu-custom'>
-  <view class="cu-bar fixed bg-shadeTop" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    
-     
-    <view class='content' style='top:{{StatusBar}}px;'>分类</view>
-  </view>
-</view>
-<view style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;" ></view>
-<view class="VerticalBox">
-  <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation scroll-top="{{VerticalNavTop}}" style="height:calc(100vh - 130rpx)">
-    <view class="cu-item {{index==TabCur?'text-yellow cur':''}}" wx:for="{{list}}" wx:key bindtap='tabSelect' data-id="{{index}}">
-      {{item.name}}
-    </view>
-  </scroll-view>
-  <scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 130rpx)" scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
-    <view class="padding-top padding-lr" wx:for="{{list}}" wx:key id="main-{{index}}">
-      <view class='cu-bar solid-bottom bg-white'>
-        <view class=''>
-          <text class='cuIcon-title text-yellow'></text> {{item.name}} </view>
-      </view>
-      <view class="cu-list menu-avatar">
-      <view > </view>
-      </view>
+    <view class="cu-bar fixed bg-shadeTop" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
 
+
+        <view class='content' style='top:{{StatusBar}}px;'>分类</view>
     </view>
-  </scroll-view>
+</view>
+<view style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;"></view>
+<view class="VerticalBox">
+    <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation scroll-top="{{VerticalNavTop}}" style="height:calc(100vh - 130rpx)">
+        <view class="cu-item {{index==TabCur?'text-yellow cur':''}}" wx:for="{{list}}" wx:key bindtap='tabSelect' data-id="{{index}}">
+            {{item.name}}
+        </view>
+    </scroll-view>
+    <scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 130rpx)" scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
+        <view class="padding-top padding-lr" wx:for="{{list}}" wx:key id="main-{{index}}">
+            <view class='cu-bar solid-bottom bg-white'>
+                <view class=''>
+                    <text class='cuIcon-title text-yellow'></text> {{item.name}}
+                </view>
+            </view>
+            <view class="cu-list menu-avatar ">
+                <view class="list-item card " wx:for="{{item.spec}}" id="spec-{{index}}" >
+                   <view class=" flex align-center margin-xs">
+                   <image src="{{item.imgsrc}}" mode="aspectFit" class="img"></image>
+                   <view class="title ">{{item.title}}</view>
+                   </view>
+                </view>
+            </view>
+
+        </view>
+    </scroll-view>
 </view>

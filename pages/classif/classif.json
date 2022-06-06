@@ -1,6 +1,8 @@
 {
     "usingComponents": {
-        "cu-custom":"../../colorui/components/cu-custom"
+        "cu-custom":"../../colorui/components/cu-custom",
+        "van-card": "@vant/weapp/card/index"
     },
-    "component": true
+    "component": true,
+    "enablePullDownRefresh": true
 }
