@@ -20,14 +20,15 @@
                 </view>
             </view>
             <view class="cu-list menu-avatar ">
+            <view class="cu-form-group ">
                 <view class="list-item card " wx:for="{{item.spec}}" id="spec-{{index}}" >
-                   <view class=" flex align-center margin-xs">
+                   <view class="  justify-center margin-xs">
                    <image src="{{item.imgsrc}}" mode="aspectFit" class="img"></image>
-                   <view class="title ">{{item.title}}</view>
+                   <view class="text">{{item.title}}</view>
                    </view>
                 </view>
             </view>
-
+</view>
         </view>
     </scroll-view>
 </view>

@@ -41,8 +41,8 @@
       display: flex;
       background-color: #fff;
   }
-  .card.text{
-
+  .card .text{
+        text-align: center;
   }
   .card .img{
       height: 200rpx;

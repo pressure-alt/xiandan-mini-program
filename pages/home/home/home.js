@@ -101,11 +101,13 @@ Page({
         })
     },
     goodDetails(e){
-        console.log(e)
-        
-        // wx.navigateTo({
-        //   url: '../goods/goods'+"",
-        // })
+       
+        let goodinfo=this.data.goodsList[e.currentTarget.dataset.id]
+         console.log(goodinfo)
+         let a=JSON.stringify(goodinfo)
+        wx.navigateTo({
+          url: '../goods/goods'+"?info="+a,
+        })
     }
     ,
    NavChange(e) {
