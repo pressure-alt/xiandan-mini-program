@@ -1,23 +1,27 @@
 {
     "pages": [
-"pages/classif/classif",
+        
         "pages/home/home/home",
-        "pages/index/index",
-        "pages/logs/logs",
+        "pages/maidan/index",
         "pages/info/info",
-        "pages/my/my",
         
         "pages/home/goods/goods",
+        "pages/index/index",
+        "pages/logs/logs",
+        "pages/my/my",
+        "pages/classif/classif",
         "components/searchbar",
         "pages/addgoods/addgoods",
-        "pages/my/order-list"
+        "pages/my/order-list",
+        "pages/maidan/editgoods"
     ],
     "tabBar": {
         "color": "#000000",
         "selectedColor": "#fbbd08",
-        "list": [{
-                "iconPath": "/images/home.png",
-                "selectedIconPath": "/images/home (2).png",
+        "list": [
+            {
+                "iconPath": "/images/home1.png",
+                "selectedIconPath": "/images/home.png",
                 "pagePath": "pages/home/home/home",
                 "text": "首页"
             },
@@ -28,14 +32,14 @@
                 "text": "分类"
             },
             {
-                "iconPath": "/images/add.png",
-                "selectedIconPath": "/images/add (2).png",
+                "iconPath": "/images/add1.png",
+                "selectedIconPath": "/images/add.png",
                 "pagePath": "pages/addgoods/addgoods",
                 "text": "发布"
             },
             {
-                "iconPath": "/images/message.png",
-                "selectedIconPath": "/images/message (2).png",
+                "iconPath": "/images/cart1.png",
+                "selectedIconPath": "/images/cart.png",
                 "pagePath": "pages/info/info",
                 "text": "消息"
             },

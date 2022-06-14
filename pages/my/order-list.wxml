@@ -1,3 +1,6 @@
+<cu-custom bgColor="bg-yellow" isCustom="{{true}}">
+    <view slot="content">商品详情</view>
+</cu-custom>
 <van-sticky>
   <van-tabs wx:if='{{!hasRefund}}' active="{{ tabIndex }}" bind:change="statusTap">
     <van-tab wx:for="{{statusType}}" wx:key="index" title="{{item.label}}" info="{{badges[index] ? badges[index] : ''}}" />

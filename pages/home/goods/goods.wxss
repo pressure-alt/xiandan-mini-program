@@ -1,1 +1,40 @@
 /* pages/home/goods/goods.wxss */
+page{
+    background-color: white;
+
+}
+.price{
+    font-family: Helvetica Neue, Helvetica, sans-serif;
+}
+.container{
+display: block;
+
+}
+.info{
+    width: 96%;
+    height: 100%;
+    margin: auto;
+}
+
+.img{
+    /* width: 100%;
+    max-width: 100%;
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    box-sizing: border-box; */
+
+}
+.container> .item{
+    flex-direction: column;
+    align-items: center;
+    /* display: block;
+	background-color: var(--white);
+	overflow: hidden;
+	border-radius: 10rpx;
+	margin: 30rpx; */
+}
+.img{
+    width: 900rpx;
+    align-self: center;
+}

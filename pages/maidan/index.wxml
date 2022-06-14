@@ -1,0 +1,40 @@
+<!--pages/my/maidan.wxml-->
+<cu-custom bgColor="bg-yellow" isCustom="{{true}}"><view slot="content">我的发布</view></cu-custom>
+<view wx:for="{{goodsList}}" wx:key="id">
+    <view class="cu-card width case  "  >
+        <view class="cu-item shadow">
+            <view class="image"  data-id="{{index}}">
+                <image src="{{item.imgList[0]}}" mode="aspectFill" lazy-load="true"></image>
+                <view class="cu-tag bg-blue" style="{{item.isNew?'':'display:none;'}}" >全新</view>
+
+            </view>
+            
+        
+                
+            <view class="cu-list menu-avatar">
+                <view class="cu-bar">
+                    <text class="text-cut text-bold margin-left margin-right text-xl">{{item.title}}</text>
+                </view>
+                <view class="cu-item">
+                
+                    <view class=" flex-sub">
+                        <view class="text-grey flex justify-between">
+                        <view class="text-red text-bold text-xxl">
+                        ￥{{item.price}}
+                        </view>
+                        <view class="text-gray  text-sm">
+                        {{item.date}}
+                        </view>
+                        
+                        </view>
+                        <view class=" margin-bottom  flex justify-end">
+                            
+                            <button class="cu-btn  round line text-blue margin-lr-sm   lg"  data-id="{{index}}" bindtap="deleteItem">删除</button>
+                            <button class="cu-btn bg-blue  margin-lr-sm lg"  data-id="{{index}}" bindtap="editItem" >编辑</button>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

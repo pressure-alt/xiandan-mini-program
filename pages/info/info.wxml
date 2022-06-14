@@ -1,2 +1,57 @@
 <!--pages/shoppingcar/shoppingcar.wxml-->
-<text>pages/shoppingcar/shoppingcar.wxml</text>
+<cu-custom bgColor="bg-yellow" isCustom="{{false}}"><view slot="content">购物车</view></cu-custom>
+<view name="no-goods" wx:if="{{!shopcart}}">
+  <van-empty description="购物车空空如也～" image="cloud://test-7grxiqxxae2c11ff.7465-test-7grxiqxxae2c11ff-1311090620/11544ab7-38ca-4570-a876-cbfd39720367.png">
+    <van-button round type="danger" color="orange"size="small" class="bottom-button" bind:click="toIndexPage">
+      去逛逛
+    </van-button>
+  </van-empty>
+</view>
+
+<view name="cart-goods-list" wx:if="{{shopcart}}">
+  <view  class="goodsList"> 
+
+      <van-cell-group class="a-gooods" wx:for="{{shoppingCarInfo}}" wx:key="key" >
+        <view class="a-goods-conts " bindtouchstart="touchS" bindtouchmove="touchM"
+          bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">
+          <view class="goods-info">
+            <view class="radio-box">
+              <radio checked="{{ item.selected }}" bindtap="radioClick" data-index="{{index}}" />
+            </view>
+            <view class="img-box">
+              <image mode="aspectFill" src="{{item.info.data.imgList[0]}}" class="img" />
+            </view>
+            <view class="text-box">
+              <view class="goods-title">{{item.info.data.title}}</view>
+              <view wx:show="{{item.sku}}" class="goods-label">
+                <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
+                  {{option.optionName}}:{{option.optionValueName}}
+                </block>
+                <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
+                  {{option.pname}}:{{option.name}}
+                </block>
+              </view>
+              <view class="goods-price">¥ {{item.info.data.price}}</view>
+             
+            </view>
+          </view>
+          <view class="delete-btn" data-key="{{item.commodityId}}" catchtap="delItem">
+            删除
+          </view>
+
+        </view>
+      </van-cell-group>
+
+    
+  </view>
+
+  <view class="jiesuan-box">
+    <view class="left-price">
+      <view wx:if="{{ score }}" class="total">合计：¥ {{price}} + {{score}} 积分</view>
+      <view wx:else class="total">合计：¥ {{price}}</view>
+    </view>
+    <view class="to-pay-btn">
+      <navigator url="/pages/to-pay-order/index?shopCarType={{shopCarType}}">去结算</navigator>
+    </view>
+  </view>
+</view>

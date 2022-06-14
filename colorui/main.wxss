@@ -2226,7 +2226,8 @@ button.icon.lg {
 
 .cu-card {
 	display: block;
-	overflow: hidden;
+    overflow: hidden;
+    
 }
 
 .cu-card>.cu-item {

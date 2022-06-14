@@ -3,16 +3,53 @@
 <cu-custom bgColor="bg-yellow" isCustom="{{true}}">
     <view slot="content">商品详情</view>
 </cu-custom>
-
 <view class="container">
+<view class="info  center">
+    <view class="cu-list menu-avatar ">
+        <view class="cu-item">
+            <view class="cu-avatar round lg" style="background-image:url({{commodityinfo.userInfo.avatarUrl}});"></view>
+            <view class="content flex-sub">
+                <view class="text-black">{{commodityinfo.userInfo.nickName}}</view>
 
-    <view class="price">
+                <view class="text-gray text-sm flex justify-between">
+                    {{commodityinfo.date}}
+                    <view class="text-balck text-l">
+                        <text class="cuIcon-locationfill text-blue  margin-l"></text> {{commodityinfo.address.city}}
 
-    </view>
-    <view class="info">
-        <view class="img">
+                    </view>
+                </view>
+            </view>
         </view>
-        
     </view>
+    <view class="cu-card no-card">
+        <view class="cu-item ">
+            <view class="price text-sl text-red text-bold  ">
+                ￥{{commodityinfo.price}}
+            </view>
+            <view class="info text-xl text-content ">
+                {{commodityinfo.info}}</view>
+            <view class="" wx:for="{{commodityinfo.imgList}}">
 
+                <view class="">
+                    <image class="img" src="{{item}}" alt="" mode="widthFix"></image>
+
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class='cu-tabbar-height'></view>
+    <view class="cu-bar bg-white tabbar border shop foot">
+        <button class="action" open-type="contact">
+            <view class="cuIcon-service text-black">
+                <view class="cu-tag badge"></view>
+            </view>
+            客服
+        </button>
+
+        <view class="action text-orange" bindtap="favor">
+            <view class="{{favor?'cuIcon-cartfill': 'cuIcon-cart'}}"></view> {{favor?'已在购物车中': '加入购物车'}}
+        </view>
+        <view class="bg-yellow submit">立即购买</view>
+    </view>
+</view>
 </view>

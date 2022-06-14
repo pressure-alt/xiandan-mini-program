@@ -2,7 +2,7 @@
 <block>
     <block class="bg">
 
-  <view class="header-box" wx:if="{{hasUserInfo}}">
+  <view class="header-box" wx:if="{{hasUserInfo}}" style="background-image: url('/images/user-topbk.png');">
       <view class="userinfo-avatar">
     <open-data type="userAvatarUrl"></open-data></view>
     <view class="r">
@@ -15,7 +15,7 @@
             <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
             <view wx:else> 请使用1.4.4及以上版本基础库 </view>
         </block>
-  <view class="asset">
+  <view class="asset ">
     <view class='item' bindtap='goAsset'>
       <view class="amount">{{balance}}</view>
       <view>余额</view>
@@ -43,17 +43,12 @@
 
   <van-cell title="我卖出的" />
   <van-grid clickable>
-    <van-grid-item icon="bill-o" text="已发布" url="/pages/maidan/index" />
-    <van-grid-item icon="balance-list-o" text="待发货" url="/pages/asset/index" />
-    <van-grid-item icon="bill-o" text="已发货" url="/pages/invoice/apply" />
-    <van-grid-item icon="bill-o" text="交易成功" url="/pages/invoice/list" />
+    <van-grid-item icon="completed" text="已发布"link-type="navigateTo" url="/pages/maidan/index" />
+    <van-grid-item icon="balance-list-o" text="待发货"link-type="navigateTo" url="/pages/asset/index" />
+    <van-grid-item icon="exchange" text="已发货"link-type="navigateTo" url="/pages/invoice/apply" />
+    <van-grid-item icon="sign" text="交易成功"link-type="navigateTo" url="/pages/invoice/list" />
   </van-grid>
-  <!-- 老样式 -->
-  <van-cell-group title="其他功能">
-    <van-cell wx:if="{{ show_quan_exchange_score == 1 }}" title="积分券兑换积分" is-link url="/pages/score-excharge/index" />
-    <van-cell wx:if="{{ show_score_exchange_growth == 1 }}" title="积分兑换成长值" is-link url="/pages/score-excharge/growth" />
-    <van-cell title="帮助中心" is-link url="/pages/help/index" />
-    <van-cell title="个人信息" is-link url="/pages/my/info-menu" />
-    <van-cell title="系统设置" is-link url="/pages/my/setting" />
-  </van-cell-group>
+  <van-cell title="帮助中心" is-link link-type="navigateTo" url="/pages/help/index" />
+    <van-cell title="个人信息" is-link link-type="navigateTo" url="/pages/my/info-menu" />
+    <van-cell title="系统设置" is-link link-type="navigateTo" url="/pages/my/setting" />
 </block>

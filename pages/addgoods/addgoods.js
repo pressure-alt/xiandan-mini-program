@@ -183,10 +183,10 @@ Page({
 
             const db = wx.cloud.database()
 
-
+        for (let i of data.imgList){
             wx.cloud.uploadFile({
-                cloudPath: data.imgList[0].substr(11),
-                filePath: data.imgList[0],
+                cloudPath: i.substr(11),
+                filePath: i,
                 config: {
                     env: this.data.envId
                 }
@@ -229,7 +229,7 @@ Page({
 
                 })
             })
-
+        }
 
 
 
