@@ -64,7 +64,6 @@ wx.showModal({
 })
     },
     async delItemDone(key) {
-
         db.collection("commodity")
             .doc(key)
             .remove()

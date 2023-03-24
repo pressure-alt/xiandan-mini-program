@@ -3,7 +3,6 @@ const WXAPI = require('apifm-wxapi')
 
 
 App({
-
     onLaunch() {
         WXAPI.init('xiandan')
         // 展示本地存储能力

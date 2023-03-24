@@ -1,10 +1,8 @@
 {
     "pages": [
-        
         "pages/home/home/home",
         "pages/maidan/index",
         "pages/info/info",
-        
         "pages/home/goods/goods",
         "pages/index/index",
         "pages/logs/logs",
@@ -41,7 +39,7 @@
                 "iconPath": "/images/cart1.png",
                 "selectedIconPath": "/images/cart.png",
                 "pagePath": "pages/info/info",
-                "text": "消息"
+                "text": "购物车"
             },
             {
                 "iconPath": "/images/My.png",
