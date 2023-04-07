@@ -1,48 +1,56 @@
+<cu-custom bgColor="bg-yellow" isCustom="{{false}}"><view slot="content">购物车</view></cu-custom>
 <view class="list">
-<swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
-   
+    <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
+            duration="500">
+
         <swiper-item wx:for="{{swiperList}}">
             <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
         </swiper-item>
-</swiper>
+    </swiper>
 
-<view wx:for="{{goodsList}}" wx:key="id">
-    <view class="cu-card width case  "  >
-        <view class="cu-item shadow">
-            <view class="image" bindtap="goodDetails" data-id="{{index}}">
-                <image src="{{item.imgList[0]}}" mode="aspectFill" lazy-load="true"></image>
-                <view class="cu-tag bg-blue" style="{{item.isNew?'':'display:none;'}}" >全新</view>
-
-            </view>
-            
-        
-                
-            <view class="cu-list menu-avatar">
-                <view class="cu-bar">
-                    <text class="text-cut text-bold margin-left margin-right text-xl">{{item.title}}</text>
+    <view wx:for="{{goodsList}}" wx:key="id">
+        <view class="cu-card width case  ">
+            <view class="cu-item shadow">
+                <view class="image" bindtap="goodDetails" data-id="{{index}}">
+                    <image src="{{item.imgList[0]}}" mode="aspectFill" lazy-load="true"></image>
+                    <!-- <view class="cu-tag bg-blue" style="{{item.isNew?'':'display:none;'}}" >全新</view> --> 
+                    <view class="cu-tag bg-blue" >
+                        {{item.fineness}}</view>
+                    <view></view>
                 </view>
-                <view class="cu-item">
-                    <view class="cu-avatar round lg" style="background-image:url({{item.userInfo.avatarUrl}});"></view>
-                    <view class="content flex-sub">
-                        <view class="text-grey flex justify-between">{{item.userInfo.nickName}}
-                        <view class="text-red text-bold text-xxl">
-                        ￥{{item.price}}
-                        </view>
-                        </view>
-                        <view class="text-gray text-sm flex justify-between">
-                            {{item.date}}
-                            <view class="text-gray text-sm">
-                                <text class="cuIcon-attentionfill margin-lr-xs"></text> 10
-                                <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
-                                <text class="cuIcon-messagefill margin-lr-xs"></text> 30
+
+
+                <view class="cu-list menu-avatar">
+                    <view class="cu-bar">
+                        <text class="text-cut text-bold margin-left margin-right text-xl">{{item.title}}</text>
+                    </view>
+                    <view class="cu-item">
+                        <view class="flex flex-treble   align-center">
+                        <view class="cu-avatar margin-left-sm  round lg"
+                              style="background-image:url({{item.userVo.avatarUrl}});"></view>
+                    <view>
+                            <view class="text-black padding-sm margin-xs ">{{item.userVo.nickName}}
+
                             </view>
+                            <view class="text-gray padding-left-sm text-sm flex justify-between">
+                                {{item.time}}
+                                <!-- <view class="text-gray text-sm">
+                                    <text class="cuIcon-attentionfill margin-lr-xs"></text> 10
+                                    <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
+                                    <text class="cuIcon-messagefill margin-lr-xs"></text> 30
+                                </view> -->
+                            </view>
+                    </view>
+                        </view>
+
+                        <view class="text-red text-bold text-xxl">
+                            ￥{{item.price}}
                         </view>
                     </view>
                 </view>
             </view>
         </view>
     </view>
-</view>
-<van-divider contentPosition="center" wx:if="{{isLastPage}}">没有更多了哦</van-divider>
+    <van-divider contentPosition="center" wx:if="{{isLastPage}}">没有更多了哦</van-divider>
 
 </view>

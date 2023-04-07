@@ -2,7 +2,7 @@
 
 
 
-const db = wx.cloud.database()
+
 const app = getApp()
 Page({
 
@@ -14,7 +14,7 @@ Page({
         favor: false,
         commodityinfo: {
             "_id": "16db756f6294d4850522274d6ededdbc",
-            "imgList": ["cloud://test-7grxiqxxae2c11ff.7465-test-7grxiqxxae2c11ff-1311090620/w4fe7VDwRhLi70f8056695fafa7497059cbf07f11be0.jpg"],
+            "imgList": [],
             "info": "买来没穿，不想要了，便宜出",
             "price": "500",
             "title": "Nike Dunk HI RETRO 夏季板鞋高帮",
@@ -28,14 +28,7 @@ Page({
                 "city": ""
             },
             "_openid": "oWl9d47ZJ-b2aJ1WZXvbRgN0WVrg",
-            "address": {
-                "city": "南昌市",
-                "district": "南昌县",
-                "nation": "中国",
-                "province": "江西省",
-                "street": "五一路",
-                "street_number": "五一路458号"
-            },
+            "address": "南昌市",
             "date": "2022/05/30 22:28:20"
         }
     },
@@ -48,16 +41,16 @@ Page({
         this.setData({
             commodityinfo:info
         })
-        const db = wx.cloud.database()
-        db.collection('favor').where({
-            commodityId: this.data.commodityinfo._id
-        }).get().then(res => {
-            if (res.data.length > 0) {
-                this.setData({
-                    favor: true
-                })
-            }
-        })
+        // const db = wx.cloud.database()
+        // db.collection('favor').where({
+        //     commodityId: this.data.commodityinfo._id
+        // }).get().then(res => {
+        //     if (res.data.length > 0) {
+        //         this.setData({
+        //             favor: true
+        //         })
+        //     }
+        // })
        
     },
 

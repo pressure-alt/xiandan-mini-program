@@ -1,0 +1,150 @@
+<!--
+此文件为开发者工具生成，生成时间: 2023/4/6上午9:33:17
+使用方法：
+在 D:\Ideaproject\xiandan3\pages\classif\classif.wxml 引入模板
+
+```
+<import src="classif.skeleton.wxml"/>
+<template is="skeleton" wx:if="{{loading}}" />
+```
+
+在 D:\Ideaproject\xiandan3\pages\classif\classif.wxss 中引入样式
+```
+@import "./classif.skeleton.wxss";
+```
+
+更多详细信息可以参考文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/skeleton.html
+-->
+<template name="skeleton">
+  <view class="sk-container">
+    <view class="cu-custom">
+      <view class="cu-bar fixed bg-shadeTop sk-image" style="height:68px;padding-top:20px;">
+        <view class="content sk-transparent sk-text-23-4375-281 sk-text" style="top: 20px; background-position-x: 50%;">分类</view>
+      </view>
+    </view>
+    <view style="height:68px;padding-top:20px;"></view>
+    <view class="VerticalBox">
+      <scroll-view scroll-with-animation="true" scroll-y="true" class="VerticalNav nav" scroll-top="0" style="height:calc(100vh - 71px)">
+        <view class="cu-item text-yellow cur sk-transparent sk-text-34-6939-551 sk-text sk-pseudo sk-pseudo-circle" data-id="0" style="background-position-x: 50%;">
+          数码
+        </view>
+        <view class="cu-item sk-transparent sk-text-34-6939-757 sk-text" data-id="1" style="background-position-x: 50%;">
+          美容彩妆
+        </view>
+        <view class="cu-item sk-transparent sk-text-34-6939-847 sk-text" data-id="2" style="background-position-x: 50%;">
+          家用电器
+        </view>
+        <view class="cu-item sk-transparent sk-text-34-6939-35 sk-text" data-id="3" style="background-position-x: 50%;">
+          户外运动
+        </view>
+        <view class="cu-item sk-transparent sk-text-34-6939-961 sk-text" data-id="4" style="background-position-x: 50%;">
+          服饰鞋帽
+        </view>
+        <view class="cu-item sk-transparent sk-text-34-6939-574 sk-text" data-id="5" style="background-position-x: 50%;">
+          家居生活
+        </view>
+        <view class="cu-item sk-transparent sk-text-34-6939-317 sk-text" data-id="6" style="background-position-x: 50%;">
+          图书影像
+        </view>
+        <view class="cu-item sk-transparent sk-text-34-6939-435 sk-text" data-id="7" style="background-position-x: 50%;">
+          手机
+        </view>
+      </scroll-view>
+      <scroll-view scroll-with-animation="true" scroll-y="true" class="VerticalMain" scroll-into-view="main-0" style="height:calc(100vh - 71px) ">
+        <view class="padding-top padding-lr" id="main-0">
+          <view class="cu-bar solid-bottom bg-white sk-pseudo sk-pseudo-circle">
+            <view class="sk-transparent">
+              <text class="cuIcon-title text-yellow sk-pseudo sk-pseudo-circle"></text> 数码
+            </view>
+          </view>
+          <view class="cu-list menu-avatar">
+            <view class="cu-form-group flex-wrap">
+              <view class="card" id="spec-0">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                  <view class="text sk-transparent sk-text-14-2857-754 sk-text" style="background-position-x: 50%;">硬盘</view>
+                </view>
+              </view>
+              <view class="card" id="spec-1">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                  <view class="text sk-transparent sk-text-14-2857-46 sk-text" style="background-position-x: 50%;">电脑周边</view>
+                </view>
+              </view>
+              <view class="card" id="spec-2">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                  <view class="text sk-transparent sk-text-14-2857-227 sk-text" style="background-position-x: 50%;">USB周边</view>
+                </view>
+              </view>
+              <view class="card" id="spec-3">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                  <view class="text sk-transparent sk-text-14-2857-211 sk-text" style="background-position-x: 50%;">耳机耳麦</view>
+                </view>
+              </view>
+              <view class="card" id="spec-4">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                  <view class="text sk-transparent sk-text-14-2857-65 sk-text" style="background-position-x: 50%;">MP3</view>
+                </view>
+              </view>
+              <view class="card" id="spec-5">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                  <view class="text sk-transparent sk-text-14-2857-162 sk-text" style="background-position-x: 50%;">音响</view>
+                </view>
+              </view>
+              <view class="card" id="spec-6">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                  <view class="text sk-transparent sk-text-14-2857-798 sk-text" style="background-position-x: 50%;">笔记本电脑</view>
+                </view>
+              </view>
+              <view class="card" id="spec-7">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                  <view class="text sk-transparent sk-text-14-2857-476 sk-text" style="background-position-x: 50%;">智能手表</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="padding-top padding-lr" id="main-1">
+          <view class="cu-bar solid-bottom bg-white sk-pseudo sk-pseudo-circle">
+            <view class="sk-transparent">
+              <text class="cuIcon-title text-yellow sk-pseudo sk-pseudo-circle"></text> 美容彩妆
+            </view>
+          </view>
+          <view class="cu-list menu-avatar">
+            <view class="cu-form-group flex-wrap">
+              <view class="card" id="spec-0">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                  <view class="text sk-transparent sk-text-14-2857-735 sk-text" style="background-position-x: 50%;">口红</view>
+                </view>
+              </view>
+              <view class="card" id="spec-1">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                  <view class="text sk-transparent sk-text-14-2857-413 sk-text" style="background-position-x: 50%;">面膜</view>
+                </view>
+              </view>
+              <view class="card" id="spec-2">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                  <view class="text sk-transparent sk-text-14-2857-563 sk-text" style="background-position-x: 50%;">卸妆水</view>
+                </view>
+              </view>
+              <view class="card" id="spec-3">
+                <view style="align-items: center;">
+                  <image class="img sk-image" mode="aspectFit"></image>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</template>

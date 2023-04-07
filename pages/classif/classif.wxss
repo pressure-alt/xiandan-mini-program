@@ -37,14 +37,16 @@
     background-color: #f1f1f1;
   }
   .card{
-      width: 100%;
+      width: 25%;
       display: flex;
+      
+      margin:0% 4% ;
       background-color: #fff;
   }
   .card .text{
         text-align: center;
   }
   .card .img{
-      height: 200rpx;
-      width: 200rpx;
+      height: 150rpx;
+      width: 150rpx;
   }

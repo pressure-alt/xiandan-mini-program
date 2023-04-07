@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "@vant/weapp": "^1.10.3",
-    "apifm-wxapi": "^3.54.2",
     "wx-server-sdk": "^2.6.1"
   },
   "devDependencies": {

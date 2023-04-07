@@ -1,17 +1,15 @@
 // app.js
-const WXAPI = require('apifm-wxapi')
+
 
 
 App({
     onLaunch() {
-        WXAPI.init('xiandan')
+        // WXAPI.init('xiandan')
         // 展示本地存储能力
-     wx.cloud.init({
-            env: "test-7grxiqxxae2c11ff",
-        })
+  
         
        wx.request({
-            url:"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx75f01b18b5b42af9&secret=da8dffbceb895b7080c4eaf2c2cb316e",
+            url:"",
             method:'post',
 success(res){
    wx.setStorageSync('token', res.data.access_token)
@@ -120,6 +118,8 @@ success(res){
     globalData: {
         appid:"wx75f01b18b5b42af9",
         secret:"da8dffbceb895b7080c4eaf2c2cb316e",
-        userInfo: null
+        userInfo: null,
+        domain:"http://localhost:8088"
     }
+    
 })

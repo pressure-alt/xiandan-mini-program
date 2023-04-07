@@ -12,18 +12,18 @@
             {{item.name}}
         </view>
     </scroll-view>
-    <scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 130rpx)" scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
-        <view class="padding-top padding-lr" wx:for="{{list}}" wx:key id="main-{{index}}">
+    <scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 130rpx) " scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
+        <view class="padding-top padding-lr " wx:for="{{list}}" wx:key id="main-{{index}}">
             <view class='cu-bar solid-bottom bg-white'>
                 <view class=''>
                     <text class='cuIcon-title text-yellow'></text> {{item.name}}
                 </view>
             </view>
             <view class="cu-list menu-avatar ">
-                <view class="cu-form-group ">
-                    <view class="list-item card " wx:for="{{item.spec}}" id="spec-{{index}}">
-                        <view class="  justify-center margin-xs">
-                            <image src="{{item.imgsrc}}" mode="aspectFit" class="img"></image>
+                <view class="cu-form-group  flex-wrap ">
+                    <view class=" card " wx:for="{{item.spec}}" id="spec-{{index}}">
+                        <view class=" " style="align-items: center;">
+                            <image src="{{item.imagePath}}" mode="aspectFit" class="img"></image>
                             <view class="text">{{item.title}}</view>
                         </view>
                     </view>

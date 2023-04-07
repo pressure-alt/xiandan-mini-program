@@ -15,7 +15,7 @@
             <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
             <view wx:else> 请使用1.4.4及以上版本基础库 </view>
         </block>
-  <view class="asset ">
+  <!-- <view class="asset ">
     <view class='item' bindtap='goAsset'>
       <view class="amount">{{balance}}</view>
       <view>余额</view>
@@ -29,7 +29,7 @@
       <view>积分</view>
     </view>
 
-  </view>
+  </view> -->
 </block>
   <view class="space van-hairline--bottom"></view>
 

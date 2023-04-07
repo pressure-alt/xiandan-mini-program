@@ -1,5 +1,5 @@
 // pages/maidan/editgoods.js
-const db = wx.cloud.database()
+
 Page({
 
     /**

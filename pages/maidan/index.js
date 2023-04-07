@@ -1,5 +1,4 @@
 // pages/maidan/index.js
-const db=wx.cloud.database()
 Page({
 
     /**
@@ -18,18 +17,18 @@ Page({
         this.refresh()
     },
     refresh(){
-        wx.cloud.callFunction({
-            name:"showMyPost",
-            data:{_openId:wx.getStorageSync("user").openid,},
+        // wx.cloud.callFunction({
+        //     name:"showMyPost",
+        //     data:{_openId:wx.getStorageSync("user").openid,},
 
                     
-        }).then(res=>{
-            console.log(res)
-            this.setData({
-                goodsList:res.result.data,
-                loading:true
-            })
-        })
+        // }).then(res=>{
+        //     console.log(res)
+        //     this.setData({
+        //         goodsList:res.result.data,
+        //         loading:true
+        //     })
+        // })
     },
     editItem(event){
         let id=event.currentTarget.dataset.id

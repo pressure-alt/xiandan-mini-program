@@ -14,7 +14,7 @@
                 <view class="text-gray text-sm flex justify-between">
                     {{commodityinfo.date}}
                     <view class="text-balck text-l">
-                        <text class="cuIcon-locationfill text-blue  margin-l"></text> {{commodityinfo.address.city}}
+                        <text class="cuIcon-locationfill text-blue  margin-l"></text> {{commodityinfo.address}}
 
                     </view>
                 </view>
@@ -39,16 +39,18 @@
     </view>
     <view class='cu-tabbar-height'></view>
     <view class="cu-bar bg-white tabbar border shop foot">
-        <button class="action" open-type="contact">
-            <view class="cuIcon-service text-black">
-                <view class="cu-tag badge"></view>
-            </view>
-            客服
-        </button>
+         
 
         <view class="action text-orange" bindtap="favor">
             <view class="{{favor?'cuIcon-cartfill': 'cuIcon-cart'}}"></view> {{favor?'已在购物车中': '加入购物车'}}
         </view>
+      <view class="action">
+            <view class=" text-black">
+                <van-icon name="chat-o" size="1.5rem" />
+                <view>联系卖家</view>
+            </view>
+            </view>
+       
         <view class="bg-yellow submit">立即购买</view>
     </view>
 </view>

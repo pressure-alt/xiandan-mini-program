@@ -1,3 +1,4 @@
+const api = require("../../api/api");
 
 const app = getApp()
 
@@ -9,24 +10,78 @@ Page({
     TabCur: 0,
     MainCur: 0,
     VerticalNavTop: 0,
-    list: [],
+    category:[],
+    list: [
+        
+    ],
     load: true
   },
+  
   onLoad() {
     wx.showLoading({
       title: '加载中...',
       mask: true
     });
- 
-    let db =wx.cloud.database()
-    
-   db.collection("category").get().then(res=>{
-       console.log(res)
-       this.setData({
-           list:res.data[0].list
-       }) 
-       console.log(this.data.list)
-   })
+ api.getCategories().then(res=>{
+    this.setData({
+        category:res.data.data
+    })
+    var tmpList=[];
+   for (let ca of this.data.category){
+       if (ca.categoryParentId==0){
+            tmpList.push({
+                id:ca.categoryId,
+                "name":ca.categoryName,
+                spec:[]
+            })
+       }
+   }
+   for (let item of this.data.category){
+       if (item.categoryParentId!=0){
+           tmpList[item.categoryParentId-1].spec.push({
+               categoryId:item.categoryId,
+               title:item.categoryName,
+               imagePath:item.imagePath
+           })
+       }
+      
+   } this.setData({
+          list:tmpList
+       })
+})
+    // wx.request({
+    //     url:"http://localhost:8088/category/get",
+    //     method:"GET",
+    //     success: (res)=>{
+    //         that.setData({
+    //             category:res.data.data
+    //         })
+    //       },
+    //     fail:(res)=>{console.log(res)},
+    //     timeout:(res)=>{
+    //         console.log(res);
+    //           wx.showToast({
+    //             title: '网络连接超时',
+    //             duration: 0,
+    //             icon: icon,
+    //             image: 'image',
+    //             mask: true,
+    //             success: (res) => {},
+    //             fail: (res) => {},
+    //             complete: (res) => {},
+    //           })
+    //   }
+      
+    //   })
+   
+   
+//    db.collection("category").get().then(res=>{
+//        console.log(res)
+//        this.setData({
+//            list:res.data[0].list
+    //    }) 
+    //    console.log(this.data.list)
+//    })
   },
   onReady() {
     wx.hideLoading()
