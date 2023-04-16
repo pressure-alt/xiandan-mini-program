@@ -1,5 +1,5 @@
 <cu-custom bgColor="bg-yellow" isCustom="{{true}}">
-    <view slot="content">我卖出的</view>
+    <view slot="content">商品管理</view>
 </cu-custom>
 <scroll-view scroll-x class="bg-white nav">
     <view class="flex text-center">

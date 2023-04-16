@@ -1,0 +1,43 @@
+<view class="container">
+<view class="page">
+  <view class="header">
+    <text class="title">地址编辑</text>
+  
+  </view>
+
+  <scroll-view class="list" scroll-y="true">
+    <block wx:for="{{addressList}}" wx:key="address.id">
+      <view class="item">
+        <view class="info">
+          <text class="name">{{item.name}}</text>
+          <text class="phone">{{item.phone}}</text>
+        </view>
+        <button class="edit" data-index="{{index}}" bindtap="editAddress">编辑</button>
+        <button class="delete" data-index="{{index}}" bindtap="deleteAddress">删除</button>
+      </view>
+    </block>
+  </scroll-view>
+
+  
+</view>
+    <view class="cu-form-group">
+        <view>{{address_component ? "定位中.." : address_component.city}}</view>
+        <button class="cu-btn bg-yellow round lg shadow" bindtap="getLocation">获取定位</button>
+    </view><view>
+    <view class="cu-form-group">
+        <view class="title">省份</view>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">城市</view>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">县(区)</view>
+    </view></view>
+    <view class="cu-form-group">
+        <view class="title">街道门牌号</view>
+    </view>
+</view>
+<view class="footer">
+    <button class="save" bindtap="saveAddress">保存</button>
+    <button class="cancel" bindtap="cancelEdit">取消</button>
+  </view>

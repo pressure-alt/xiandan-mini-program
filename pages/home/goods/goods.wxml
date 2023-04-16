@@ -7,12 +7,12 @@
 <view class="info  center">
     <view class="cu-list menu-avatar ">
         <view class="cu-item">
-            <view class="cu-avatar round lg" style="background-image:url({{commodityinfo.userInfo.avatarUrl}});"></view>
+            <view class="cu-avatar round lg" style="background-image:url({{commodityinfo.userVo.avatarUrl}});"></view>
             <view class="content flex-sub">
-                <view class="text-black">{{commodityinfo.userInfo.nickName}}</view>
+                <view class="text-black">{{commodityinfo.userVo.nickName}}</view>
 
                 <view class="text-gray text-sm flex justify-between">
-                    {{commodityinfo.date}}
+                    {{commodityinfo.time}}
                     <view class="text-balck text-l">
                         <text class="cuIcon-locationfill text-blue  margin-l"></text> {{commodityinfo.address}}
 

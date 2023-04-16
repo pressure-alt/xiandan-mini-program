@@ -6,12 +6,17 @@
         "pages/home/goods/goods",
         "pages/index/index",
         "pages/logs/logs",
-        "pages/my/my",
         "pages/classif/classif",
         "components/searchbar",
         "pages/addgoods/addgoods",
         "pages/my/order-list",
-        "pages/maidan/editgoods"
+        "pages/maidan/editgoods",
+        "pages/home/search/search",
+        "pages/my/sold-page",
+        "pages/my/my",
+        "pages/address/address",
+        "pages/address/new-address",
+        "pages/order/orderdetail"
     ],
     "tabBar": {
         "color": "#000000",
@@ -56,6 +61,7 @@
         "navigationBarTextStyle": "white"
     },
     "usingComponents": {
+        "searchbar": "/components/searchbar",
         "cu-custom": "/colorui/components/cu-custom",
         "van-notice-bar": "@vant/weapp/notice-bar/index",
         "van-search": "@vant/weapp/search/index",

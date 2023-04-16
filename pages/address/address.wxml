@@ -1,0 +1,24 @@
+<view class="container">
+  <view class="header">
+ 
+  </view>
+  <view class="address-list">
+    <block wx:for="{{addressList}}" wx:key="index">
+      <view class="address-item">
+        <view class="address-info">
+          <text class="name">{{item.name}}</text>
+          <text class="phone">{{item.phone}}</text>
+        </view>
+        <text class="address">{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</text>
+        <view class="address-operation">
+          <button class="edit" data-index="{{index}}" bindtap="editAddress">编辑</button>
+          <button class="delete" data-index="{{index}}" bindtap="deleteAddress">删除</button>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class="add-btn" bindtap="addAddress">
+    <text class="iconfont icon-add"></text>
+    <text class="add-text">新增收货地址</text>
+  </view>
+</view>

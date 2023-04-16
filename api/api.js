@@ -4,7 +4,10 @@ module.exports = {
     getGoods: getGoods,
     uploadImgs: uploadImgs,
     getCategories: getCategories,
-    getUserInfo: getUserInfo
+    getUserInfo: getUserInfo,
+    searchWithCategoryId:searchWithCategoryId,
+    searchWithKW:searchWithKW,
+    getShoppingCartInfo:getShoppingCartInfo
 }
 
 var domain = "http://localhost:8088"
@@ -73,7 +76,7 @@ function getUserAddress() {
 
 function uploadGoods(good) {
     var result;
-    return new Promise(function(resolve,reject) {
+    return new Promise(function (resolve, reject) {
         wx.request({
             url: domain + '/goods/upload',
             method: "POST",
@@ -106,12 +109,12 @@ function uploadGoods(good) {
     })
 }
 
-function getGoods() {
-    return new Promise(function(resolve,reject) {
+function getGoods(page) {
+    return new Promise(function (resolve, reject) {
         wx.request({
             url: domain + '/goods/list',
             method: "GET",
-            data:{page:0},
+            data: {page: page},
             success: function (res) {
                 console.log(res)
                 resolve(res)
@@ -132,7 +135,7 @@ function getGoods() {
  * 上传图片
  */
 function uploadImgs(filePath) {
-    return new Promise(function(resolve,reject) {
+    return new Promise(function (resolve, reject) {
         wx.uploadFile({
             filePath: filePath,
             name: 'file',
@@ -152,23 +155,113 @@ function uploadImgs(filePath) {
         })
     })
 }
- function getUserInfo(userId){
-     console.log(userId)
-    return new Promise(function(resolve,reject)
-            {wx.request({
-            url:domain+"/user/info",
-            method:"GET",
-            data:{
-                userId:12
+
+/**
+ * 获取用户详细信息
+ */
+function getUserInfo(userId) {
+    console.log(userId)
+    return new Promise(function (resolve, reject) {
+        wx.request({
+            url: domain + "/user/info",
+            method: "GET",
+            data: {
+                userId: 12
             },
-            success:(res)=>{
-                
+            success: (res) => {
+
                 resolve(res)
             },
-            fail:(res)=>{
+            fail: (res) => {
                 reject(res)
             }
         })
-    })  
+    })
 
+}
+
+/**
+ * 关键字搜索
+ */
+function searchWithKW(keyWords){
+    if (typeof(keyWords)==="string")
+    {
+        console.log(keyWords)
+        return new Promise((resolve, reject) => {
+        wx.request({
+            url:domain+"/goods/search-words?keyWords="+keyWords,
+            method:"POST",
+
+
+            success: function (res) {
+                console.log(res)
+                resolve(res)
+            },
+            fail: function (res) {
+                console.log(res)
+                reject(res)
+            },
+            timeout: function (res) {
+                console.log("请求超时")
+                console.log(res)
+            }
+        })
+        })
+    }
+
+}
+
+/**
+ * 关键字搜索
+ */
+function searchWithCategoryId(categoryId){
+    if (typeof(categoryId)==="bigint")
+    {
+        console.log(categoryId)
+        return new Promise((resolve, reject) => {
+            wx.request({
+                url:domain+"/goods/search-cid?categoryId="+categoryId,
+                method:"POST",
+
+                success: function (res) {
+                    console.log(res)
+                    resolve(res)
+                },
+                fail: function (res) {
+                    console.log(res)
+                    reject(res)
+                },
+                timeout: function (res) {
+                    console.log("请求超时")
+                    console.log(res)
+                }
+            })
+        })
+    }
+
+}
+
+/**
+ * 获取购物车信息
+ * @param userId id
+ * @returns {Promise<unknown>}
+ */
+function getShoppingCartInfo(openId){
+    return new Promise((resolve, reject) => {
+        wx.request({
+            url:domain+"/shopping-cart/info?openId="+openId,
+            success: function (res) {
+                console.log(res)
+                resolve(res)
+            },
+            fail: function (res) {
+                console.log(res)
+                reject(res)
+            },
+            timeout: function (res) {
+                console.log("请求超时")
+                console.log(res)
+            }
+        })
+    })
 }

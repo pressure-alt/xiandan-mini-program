@@ -8,20 +8,23 @@ Page({
      * 页面的初始数据
      */
     data: {
+        searchKey: "",
+        searchList:[],
+        searchMode: false,
         goodsRecommend: {},
         curPage: 0,
         isCard: false,
         cardCur: 0,
         loading: false,
-        isLastPage: Boolean,
+        isLastPage: false,
         swiperList: [{
             id: 0,
             type: 'image',
-            url: domain + '/images/11544ab7-38ca-4570-a876-cbfd39720367.png'
+            url: domain + '/images/QQ图片20220528211747.jpg'
         }, {
             id: 1,
             type: 'image',
-            url: domain + '/images/QQ图片20220528211747.jpg'
+            url: domain + '/images/pngtree-especially-recommended-image_755484.jpg'
         }],
         goodsList: [{
 
@@ -29,8 +32,8 @@ Page({
             "info": "买来没穿，不想要了，便宜出",
             "price": "500",
             "title": "Nike Dunk HI RETRO 夏季板鞋高帮",
-            "userVO": {
-                
+            "userVo": {
+
                 "nickName": "Sunny",
                 "province": "",
                 "avatarUrl": "https://thirdwx.qlogo.cn/mmopen/vi_32/4zxVLG6k7XrcUY5iaNZ1NgELFrqjvc7TPk98MEKAr7F0gXZYwgw6nB5uEz5onL9m3ugcWOwO7CeuxXhfA9kR5Lg/132",
@@ -38,7 +41,7 @@ Page({
             },
             "_openid": "oWl9d47ZJ-b2aJ1WZXvbRgN0WVrg",
             "address": "南昌市",
-            "date": "2022/05/30 "
+            "time": "2022/05/30 "
         }
         ]
     },
@@ -47,70 +50,53 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-       this.goodsItemDataRequire();
-// wx.request({
-//   url: domain+'/goods/update',
-//   method: "POST",
-//   data: {
-//     categoryId: 11,
-//     details: "details",
-//     fineness: "95",
-//     gid: 848,
-//     iconPath: "9",
-//     location: "ad",
-//     ownerId: 0,
-//     prePrice: 9,
-//     price: 9.99,
-//     profile: null,
-//     status: 1,
-//     stockNum: 10,
-//     time: "2023-03-19"
-//   },
-//   success: function(res){
-//       console.log(res)
-//   },
-//   fail: function(res){
-//       console.log(res)
-//   }
-// })
-        //    wx.cloud.callFunction({
-        //         name:"show",
-        //        config:{
-        //         env:options.envId
-        //         },
-
-        //     }).then(res=>{
-        //         console.log(res)
-        //         this.setData({
-        //             goodsList:res.result.data,
-        //             loading:true
-        //         })
-        //     })
 
     },
-
+//获取商品数据
     goodsItemDataRequire() {
 
-        let goods;
-        api.getGoods().then(res => {
-           
-                console.log(res.data.data);
-                res.data.data.forEach(element => {
-    
-                element.imgList= JSON.parse(element.imgList);
-            });
-                
-            
-            this.setData({
-                goodsList: res.data.data
-            })
-
-            })
-           
-
-       
-
-
+        api.getGoods(this.data.curPage).then(res => {
+            if (res.data.data && res.data.data.length > 0) {
+                console.log(1);
+                this.setData({
+                    curPage: this.data.curPage + 1
+                })
+                this.setData({
+                    goodsList: this.data.goodsList.concat(res.data.data)
+                })
+            } else {
+                this.setData({
+                    isLastPage: true
+                })
+            }
+        })
+    },
+    //切换搜索和浏览界面
+    navToSearch() {
+        this.setData({
+            searchMode: true
+        })
+    },
+    searchCancel() {
+        this.setData({
+            searchMode: false
+        })
+    },
+    searchGoods(res) {
+        api.searchWithKW(this.data.searchKey).then(res => {
+                if (res.data && res.data.length != 0) {
+                    this.setData({
+                        searchList: res.data.data
+                    })
+                }
+                else{
+                    wx.showToast({
+                      title: 'title',
+                      icon:'error'
+                    })
+                }
+            }
+        )
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -146,17 +132,12 @@ Page({
      */
     onPullDownRefresh() {
         wx.showNavigationBarLoading()
-
-        // wx.cloud.callFunction({
-        //     name:"show",
-        // }).then(res=>{
-        //     console.log(res)
-        //     this.setData({
-        //         goodsList:res.result.data
-        //     })
-        //     wx.hideNavigationBarLoading();//完成停止加载
-        //     wx.stopPullDownRefresh();
-        // })
+        api.getGoods(0).then(res => {
+            this.setData({
+                curPage: 0,
+                goodsList: res.data.data
+            })
+        })
     },
 
     /**
@@ -164,9 +145,7 @@ Page({
      */
     onReachBottom() {
         if (!this.data.isLastPage)
-            this.setData({
-                page: page + 1
-            })
+            this.goodsItemDataRequire()
     },
     goodDetails(e) {
 

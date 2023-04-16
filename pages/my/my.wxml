@@ -33,22 +33,22 @@
 </block>
   <view class="space van-hairline--bottom"></view>
 
-  <van-cell title="我买到的" value="更多" is-link url="/pages/my/order-list" />
+  <van-cell title="我的订单" value="更多" is-link url="/pages/my/order-list?TabCur=0" />
   <van-grid clickable column-num="4">
-    <van-grid-item icon="balance-list-o" text="待付款" badge="{{count_id_no_pay}}" bindtap='goOrder' data-type="0" />
-    <van-grid-item icon="logistics" text="待发货" badge="{{count_id_no_transfer}}" bindtap='goOrder' data-type="1" />
-    <van-grid-item icon="certificate" text="待收货" badge="{{count_id_no_confirm}}" bindtap='goOrder' data-type="2" />
-    <van-grid-item icon="flower-o" text="待评价" badge="{{count_id_no_reputation}}" bindtap='goOrder' data-type="3" />
+    <van-grid-item icon="balance-list-o" text="待付款" badge="{{count_id_no_pay}}" link-type="navigateTo" is-link url="/pages/my/order-list?TabCur=1" data-type="1" />
+    <van-grid-item icon="logistics" text="待发货" badge="{{count_id_no_transfer}}" link-type="navigateTo" is-link url="/pages/my/order-list?TabCur=2" data-type="2" />
+    <van-grid-item icon="certificate" text="待收货" badge="{{count_id_no_confirm}}" link-type="navigateTo" is-link url="/pages/my/order-list?TabCur=3" data-type="3" />
+    <van-grid-item icon="flower-o" text="待评价" badge="{{count_id_no_reputation}}" link-type="navigateTo" is-link url="/pages/my/order-list?TabCur=4" data-type="4" />
   </van-grid>
 
-  <van-cell title="我卖出的" />
+  <van-cell title="商品管理" value="更多" is-link url="/pages/my/sold-page?TabCur=0" data-type="0"/>
   <van-grid clickable>
-    <van-grid-item icon="completed" text="已发布"link-type="navigateTo" url="/pages/maidan/index" />
-    <van-grid-item icon="balance-list-o" text="待发货"link-type="navigateTo" url="/pages/asset/index" />
-    <van-grid-item icon="exchange" text="已发货"link-type="navigateTo" url="/pages/invoice/apply" />
-    <van-grid-item icon="sign" text="交易成功"link-type="navigateTo" url="/pages/invoice/list" />
+    <van-grid-item icon="completed" text="已发布" link-type="navigateTo" url="/pages/my/sold-page?TabCur=1" data-type="1"/>
+    <van-grid-item icon="eye-o" text="审核完成" link-type="navigateTo" url="/pages/my/sold-page?TabCur=2" data-type="2"/>
+    <van-grid-item icon="exchange" text="发货管理" link-type="navigateTo" url="/pages/my/sold-page?TabCur=3" data-type="3"/>
+    <van-grid-item icon="sign" text="交易成功" link-type="navigateTo" url="/pages/my/sold-page?TabCur=4" data-type="4"/>
   </van-grid>
-  <van-cell title="帮助中心" is-link link-type="navigateTo" url="/pages/help/index" />
+  <van-cell title="地址管理" is-link link-type="navigateTo" url="/pages/address/address" />
     <van-cell title="个人信息" is-link link-type="navigateTo" url="/pages/my/info-menu" />
     <van-cell title="系统设置" is-link link-type="navigateTo" url="/pages/my/setting" />
 </block>

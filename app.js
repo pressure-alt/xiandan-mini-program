@@ -8,26 +8,6 @@ App({
         // 展示本地存储能力
   
         
-       wx.request({
-            url:"",
-            method:'post',
-success(res){
-   wx.setStorageSync('token', res.data.access_token)
-}
-        })
-
-
-        // WXAPI.queryConfigBatch('mallName,WITHDRAW_MIN,ALLOW_SELF_COLLECTION,order_hx_uids,subscribe_ids,share_profile,adminUserIds,goodsDetailSkuShowType,shopMod,needIdCheck,balance_pay_pwd,shipping_address_gps,shipping_address_region_level,shopping_cart_vop_open,cps_open,recycle_open,categoryMod,hide_reputation,show_seller_number,show_goods_echarts,show_buy_dynamic,goods_search_show_type,show_3_seller,show_quan_exchange_score,show_score_exchange_growth,show_score_sign,fx_subscribe_ids,share_pic,orderPeriod_open,order_pay_user_balance,wxpay_api_url,sphpay_open,fx_type').then(res => {
-        //     if (res.code == 0) {
-        //       res.data.forEach(config => {
-        //         wx.setStorageSync(config.key, config.value);
-        //       })
-        //       if (this.configLoadOK) {
-        //         this.configLoadOK()
-        //       }
-             
-        //     }
-        //   })
         wx.getNetworkType({
             success(res) {
               const networkType = res.networkType
@@ -83,7 +63,7 @@ success(res){
                     wx.setStorageSync('userInfo', objz);//存储userInfo
                   }
                 });
-                var d = that.globalData;//这里存储了appid、secret、token串  
+                var d = that.globalData;
                 var l = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + d.appid + '&secret=' + d.secret + '&js_code=' + res.code + '&grant_type=authorization_code';
                 wx.request({
                   url: l,
@@ -117,7 +97,6 @@ success(res){
     },
     globalData: {
         appid:"wx75f01b18b5b42af9",
-        secret:"da8dffbceb895b7080c4eaf2c2cb316e",
         userInfo: null,
         domain:"http://localhost:8088"
     }

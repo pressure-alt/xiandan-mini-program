@@ -1,56 +1,107 @@
-<cu-custom bgColor="bg-yellow" isCustom="{{false}}"><view slot="content">购物车</view></cu-custom>
+<cu-custom bgColor="bg-yellow" class="box">
+</cu-custom>
+<view class="content">
+    <view class="cu-bar search bg-white">
+
+        <view class="search-form round" bindtap="navToSearch">
+            <text class="cuIcon-search"></text>
+            <input type="text" placeholder="搜索商品、分类" confirm-type="search" model:value="{{searchKey}}"
+                   bindconfirm="searchGoods"></input>
+        </view>
+        <view class="action" wx:if="{{searchMode}}">
+            <button class="cu-btn bg-gray shadow-blur  round" bindtap="searchCancel">取消</button>
+        </view>
+    </view>
+</view>
+
 <view class="list">
-    <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
-            duration="500">
+    <view wx:if="{{!searchMode}}">
+        <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
+                duration="500">
+            <swiper-item wx:for="{{swiperList}}">
+                <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+            </swiper-item>
+        </swiper>
 
-        <swiper-item wx:for="{{swiperList}}">
-            <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
-        </swiper-item>
-    </swiper>
-
-    <view wx:for="{{goodsList}}" wx:key="id">
-        <view class="cu-card width case  ">
-            <view class="cu-item shadow">
-                <view class="image" bindtap="goodDetails" data-id="{{index}}">
-                    <image src="{{item.imgList[0]}}" mode="aspectFill" lazy-load="true"></image>
-                    <!-- <view class="cu-tag bg-blue" style="{{item.isNew?'':'display:none;'}}" >全新</view> --> 
-                    <view class="cu-tag bg-blue" >
-                        {{item.fineness}}</view>
-                    <view></view>
-                </view>
-
-
-                <view class="cu-list menu-avatar">
-                    <view class="cu-bar">
-                        <text class="text-cut text-bold margin-left margin-right text-xl">{{item.title}}</text>
-                    </view>
-                    <view class="cu-item">
-                        <view class="flex flex-treble   align-center">
-                        <view class="cu-avatar margin-left-sm  round lg"
-                              style="background-image:url({{item.userVo.avatarUrl}});"></view>
-                    <view>
-                            <view class="text-black padding-sm margin-xs ">{{item.userVo.nickName}}
-
-                            </view>
-                            <view class="text-gray padding-left-sm text-sm flex justify-between">
-                                {{item.time}}
-                                <!-- <view class="text-gray text-sm">
-                                    <text class="cuIcon-attentionfill margin-lr-xs"></text> 10
-                                    <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
-                                    <text class="cuIcon-messagefill margin-lr-xs"></text> 30
-                                </view> -->
-                            </view>
-                    </view>
+        <view wx:for="{{goodsList}}" wx:key="id">
+            <view class="cu-card width case  ">
+                <view class="cu-item shadow">
+                    <view class="image" bindtap="goodDetails" data-id="{{index}}">
+                        <image src="{{item.imgList[0]}}" mode="aspectFill" lazy-load="true"></image>
+                        <!-- <view class="cu-tag bg-blue" style="{{item.isNew?'':'display:none;'}}" >全新</view> -->
+                        <view class="cu-tag bg-blue" wx:if="{{item.fineness}}">
+                            {{item.fineness}}
                         </view>
+                        <view></view>
+                    </view>
+                    <view class="cu-list menu-avatar">
+                        <view class="cu-bar">
+                            <text class="text-cut text-bold margin-left margin-right text-xl">{{item.title}}</text>
+                        </view>
+                        <view class="cu-item">
+                            <view class="flex flex-treble   align-center">
+                                <view class="cu-avatar margin-left-sm  round lg"
+                                      style="background-image:url({{item.userVo.avatarUrl}});"></view>
+                                <view>
+                                    <view class="text-black padding-sm margin-xs ">{{item.userVo.nickName}}
 
-                        <view class="text-red text-bold text-xxl">
-                            ￥{{item.price}}
+                                    </view>
+                                    <view class="text-gray padding-left-sm text-sm flex justify-between">
+                                        {{item.time}}
+
+                                    </view>
+                                </view>
+                            </view>
+
+                            <view class="text-red text-bold text-xxl">
+                                ￥{{item.price}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <van-divider contentPosition="center" wx:if="{{isLastPage}}">没有更多了哦</van-divider>
+    </view>
+    <view wx:else>
+        <view wx:for="{{searchList}}" wx:key="id">
+            <view class="cu-card width case  ">
+                <view class="cu-item shadow">
+                    <view class="image" bindtap="goodDetails" data-id="{{index}}">
+                        <image src="{{item.imgList[0]}}" mode="aspectFill" lazy-load="true"></image>
+                        <view class="cu-tag bg-blue" wx:if="{{item.fineness}}">
+                            {{item.fineness}}
+                        </view>
+                        <view></view>
+                    </view>
+
+
+                    <view class="cu-list menu-avatar">
+                        <view class="cu-bar">
+                            <text class="text-cut text-bold margin-left margin-right text-xl">{{item.title}}</text>
+                        </view>
+                        <view class="cu-item">
+                            <view class="flex flex-treble   align-center">
+                                <view class="cu-avatar margin-left-sm  round lg"
+                                      style="background-image:url({{item.userVo.avatarUrl}});"></view>
+                                <view>
+                                    <view class="text-black padding-sm margin-xs ">{{item.userVo.nickName}}
+
+                                    </view>
+                                    <view class="text-gray padding-left-sm text-sm flex justify-between">
+                                        {{item.time}}
+
+                                    </view>
+                                </view>
+                            </view>
+
+                            <view class="text-red text-bold text-xxl">
+                                ￥{{item.price}}
+                            </view>
                         </view>
                     </view>
                 </view>
             </view>
         </view>
     </view>
-    <van-divider contentPosition="center" wx:if="{{isLastPage}}">没有更多了哦</van-divider>
-
 </view>

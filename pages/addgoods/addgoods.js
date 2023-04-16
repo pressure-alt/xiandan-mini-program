@@ -16,9 +16,12 @@ Page({
             title: '',
             info: '',
             price: '',
+            preprice:'',
             location: '',
             imgSrcList: [],
+
         },
+        fineness:['全新','九五新','九成新','有明显使用痕迹'],
         imgList: [],
         address_component: {}
 
@@ -87,6 +90,9 @@ Page({
             sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album'], //从相册选择
             success: (res) => {
+                console.log(res)
+                //图片文件大小在5m以内
+                if(res.tempFiles[0].size<=5000000){
                 if (this.data.imgList.length != 0) {
                     this.setData({
                         imgList: this.data.imgList.concat(res.tempFilePaths)
@@ -96,6 +102,17 @@ Page({
                         imgList: res.tempFilePaths
                     })
                 }
+            }else{
+                wx.showToast({
+                  title: '图片大小不能超过5MB',
+                  duration: 1000,
+                  icon: "none",
+                  
+                  success: (res) => {},
+                  fail: (res) => {},
+                  complete: (res) => {},
+                })
+            }
             }
         });
         // WXAPI.uploadFile('', chooseResult.tempFilePaths[0]).then(
@@ -120,40 +137,7 @@ Page({
 
         return false
     },
-    getLocation() {
-        var that = this
-        qqmapsdk = new QQMapWX({
-            key: '5SIBZ-PHB6W-OEOR5-RKSN3-L5BFK-Q6FAF' //之前在腾讯平台申请到的key
-        })
-
-        wx.getLocation({ //获取定位地址经纬度
-
-            type: 'wgs84',
-            success(res) {
-                const latitude = res.latitude
-                const longitude = res.longitude
-                const speed = res.speed
-                const accuracy = res.accuracy
-                var that2 = this
-                qqmapsdk.reverseGeocoder({ //SDK调用
-                    location: {
-                        latitude,
-                        longitude
-                    },
-                    success: (res) => {
-                        //success方法指向闭包，所以this属于闭包,所以在success回调函数里是不能直接使用this.setData()的  
-                        //可以通过外面将this赋值给其它变量,也可通过promise二次封装,避免回调地狱
-
-                        that.setData({
-                            address_component: res.result.address_component
-                        })
-                        wx.setStorageSync('location', res)
-                    }
-
-                })
-            }
-        })
-    },
+    
     formSubmit(res) {
         console.log("submit")
         let data = {
@@ -182,54 +166,56 @@ Page({
             });
 
             const db = wx.cloud.database()
-
+//上传所有图片
         for (let i of data.imgList){
-            wx.cloud.uploadFile({
-                cloudPath: i.substr(11),
-                filePath: i,
-                config: {
-                    env: this.data.envId
-                }
-            }).then(res => {
-                console.log('上传成功', res);
-                this.setData({
-                    formdata: {
-                        haveGetImgSrc: true,
-                        imgSrcList: this.data.formdata.imgSrcList.concat(res.fileID)
-                    },
 
-                });
-                data.imgList = this.data.formdata.imgSrcList
-                console.log(this.data.formdata)
-                db.collection("commodity").add({
-                    data: data
-                }).then(res => {
-                    wx.hideLoading();
-                    wx.showModal({
-                        showCancel: false,
-                        content: '上传成功',
-                        placeholderText: 'placeholderText',
-                        title: '成功',
-                        success: (result) => {
-                            this.formReset()
-                        },
+            // wx.cloud.uploadFile({
+            //     cloudPath: i.substr(11),
+            //     filePath: i,
+            //     config: {
+            //         env: this.data.envId
+            //     }
+            // }).then(res => {
+            //     console.log('上传成功', res);
+            //     this.setData({
+            //         formdata: {
+            //             haveGetImgSrc: true,
+            //             imgSrcList: this.data.formdata.imgSrcList.concat(res.fileID)
+            //         },
 
-                    })
-                })
-
-            }).catch((e) => {
-                console.log(e);
-                wx.hideLoading();
-                wx.showModal({
-                    showCancel: false,
-                    content: '上传失败',
-                    placeholderText: 'placeholderText',
-                    title: '失败',
-
-
-                })
-            })
+            //     });
         }
+            //     data.imgList = this.data.formdata.imgSrcList
+            //     console.log(this.data.formdata)
+            //     db.collection("commodity").add({
+            //         data: data
+            //     }).then(res => {
+            //         wx.hideLoading();
+            //         wx.showModal({
+            //             showCancel: false,
+            //             content: '上传成功',
+            //             placeholderText: 'placeholderText',
+            //             title: '成功',
+            //             success: (result) => {
+            //                 this.formReset()
+            //             },
+
+            //         })
+            //     })
+
+            // }).catch((e) => {
+            //     console.log(e);
+            //     wx.hideLoading();
+            //     wx.showModal({
+            //         showCancel: false,
+            //         content: '上传失败',
+            //         placeholderText: 'placeholderText',
+            //         title: '失败',
+
+
+            //     })
+            // })
+        
         }
     }
 
@@ -239,9 +225,11 @@ Page({
             imgList: []
         })
     },
-    submitToDB(e) {
-        let form = this.data.formdata
-        console.log(form)
-
-    }
+    //商品成色选择
+    PickerChange(e) {
+        console.log(e);
+        this.setData({
+          index: e.detail.value
+        })
+      },
 })
