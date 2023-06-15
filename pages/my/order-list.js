@@ -10,7 +10,7 @@ Page({
         zone:["全部","待付款","待发货","待收货","待评价"],
         orderList:[
            
-            {   imgList:["http://localhost:8088/images/QQ图片20220528211758.jpg"],
+            {   imgList:["https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1664192126.84785883.png"],
                 price:"2599.01",
                 totalPrice:"25990.10",
                 title:"小米手机",

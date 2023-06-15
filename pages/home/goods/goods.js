@@ -1,5 +1,5 @@
 // pages/home/goods/goods.ts
-
+const sapi=require("../../../api/shoppingcart-api")
 
 
 
@@ -10,26 +10,14 @@ Page({
      * 页面的初始数据
      */
     data: {
+        querry:{
+            userId:101,
+            gid:null,
+            num:1
+        },
         banners: {},
         favor: false,
         commodityinfo: {
-            "_id": "16db756f6294d4850522274d6ededdbc",
-            "imgList": [],
-            "info": "买来没穿，不想要了，便宜出",
-            "price": "500",
-            "title": "Nike Dunk HI RETRO 夏季板鞋高帮",
-            "userInfo": {
-                "country": "",
-                "gender": 0,
-                "language": "zh_CN",
-                "nickName": "Sunny",
-                "province": "",
-                "avatarUrl": "https://thirdwx.qlogo.cn/mmopen/vi_32/4zxVLG6k7XrcUY5iaNZ1NgELFrqjvc7TPk98MEKAr7F0gXZYwgw6nB5uEz5onL9m3ugcWOwO7CeuxXhfA9kR5Lg/132",
-                "city": ""
-            },
-            "_openid": "oWl9d47ZJ-b2aJ1WZXvbRgN0WVrg",
-            "address": "南昌市",
-            "date": "2022/05/30 22:28:20"
         }
     },
 
@@ -65,7 +53,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-
+        this.getShoppingCartInfo();
     },
 
     /**
@@ -105,61 +93,30 @@ Page({
     favor() {
         let that = this
 
-        if (this.data.favor) {
-            this.setData({
-                favor: false
-            })
-           if (this.removeFavor())
-           {
-            wx.showToast({
-              title: '成功移出购物车',
-              duration:800
-            })
-           }
-           else{
-               wx.showToast({
-                 title: '移出购物车失败',
-                 duration:800
-               })
-           }
-
-        } else {
-            if(this.addFavor()){
-                this.setData({
-                favor: true
-            })
-            wx.showToast({
-              title: '收藏成功',
-              duration:800
-            })
-            }
-            else{
-                wx.showToast({
-                  title: '收藏失败',
-                  duration:800
-                })
-            }
+            this.addFavor()
+                
+            
+          
+           
             
             
-        }
+            
+        
     },
     addFavor() {
-        db.collection("favor")
-            .add({
-                data: {
-                    commodityId: this.data.commodityinfo._id
-                }
-            })
-        .catch(e=>{return false})
-        return true
+        this.data.querry.gid=this.data.commodityinfo.id
+        sapi.addShoppingcart(this.data.querry).then(res=>{
+            console.log(res)
+            wx.showToast({
+                title: res.message,
+                duration:800
+              })
+            return true
+        })
+        
     },
     removeFavor() {
-        db.collection("favor")
-            .where({
-                commodityId: this.data.commodityinfo._id
-            })
-            .remove()
-            .catch(e=>{return false})
+        
         return true
     }
 })

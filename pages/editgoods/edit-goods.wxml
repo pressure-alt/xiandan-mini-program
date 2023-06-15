@@ -1,17 +1,17 @@
 <!--pages/addgoods/addgoods.wxml-->
-<cu-custom bgColor="bg-yellow" isCustom="{{false}}">
-    <view slot="content">发布闲置</view>
+<cu-custom bgColor="bg-yellow" isCustom="{{true}}">
+    <view slot="content">编辑商品</view>
 </cu-custom>
 
 <form catchsubmit="formSubmit" catchreset="formReset">
     <view class="cu-form-group">
 
-        <input placeholder="简介*" name="title"></input>
+        <input placeholder="简介*" name="title"value="{{goods.gprofile}}"></input>
 
     </view>
     <view class="cu-form-group">
 
-        <textarea placeholder="详情*" name="info"></textarea>
+        <textarea placeholder="详情*" name="info" value="{{goods.gdetails}}"></textarea>
 
     </view>
 
@@ -20,7 +20,7 @@
             ￥
         </view>
         <textarea name="price" class="price text-red text-xl    " auto-height="true" maxlength="10"
-                  placeholder="出售价*"></textarea>
+                  placeholder="出售价*" value="{{goods.gprice}}"></textarea>
 
     </view>
 
@@ -29,19 +29,19 @@
             ￥
         </view>
         <textarea name="preprice" class="price text text-xxl  text-red " auto-height="true" maxlength="10"
-                  placeholder="原价"></textarea>
+                  placeholder="原价"value ="{{goods.gprePrice}}"></textarea>
 
     </view>
     <view class='cu-form-group'>商品成色
-        <picker bindchange="PickerChange" name="fineness" value="{{index?index:'有明显使用痕迹'}}" range="{{fineness}}">
+        <picker bindchange="PickerChange" name="fineness" value="{{goods.fineness}}" range="{{fineness}}">
             <view class="picker">
-                {{index ? fineness[index] : '有明显使用痕迹'}}
+                {{index ? fineness[index] : goods.fineness}}
             </view>
         </picker>
     </view>
     <view class="cu-form-group">
 <textarea name="contact" class="price text text-xxl   " auto-height="true" 
-                  placeholder="联系方式(微信号或手机号)*"></textarea>
+                  placeholder="联系方式(微信号或手机号)*" value="{{goods.glocation}}"></textarea>
     </view>
     <view class="cu-form-group">
     <view class="title">商品数量</view>
@@ -52,19 +52,19 @@
             图片上传*
         </view>
         <view class="action">
-            {{imgList.length}}/9
+            {{goods.giconPath.length}}/9
         </view>
     </view>
     <view class="cu-form-group">
         <view class="grid col-4 grid-square flex-sub">
-            <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage"
-                  data-url="{{imgList[index]}}">
-                <image src='{{imgList[index]}}' mode='aspectFill'></image>
+            <view class="bg-img" wx:for="{{goods.giconPath}}" wx:key="{{index}}" bindtap="ViewImage"
+                  data-url="{{goods.giconPath[index]}}">
+                <image src='{{goods.giconPath[index]}}' mode='aspectFill'></image>
                 <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
                     <text class="cuIcon-close"></text>
                 </view>
             </view>
-            <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<9}}">
+            <view class="solids" bindtap="ChooseImage" wx:if="{{goods.giconPath.length<9}}">
                 <text class="cuIcon-cameraadd"></text>
             </view>
         </view>

@@ -1,7 +1,7 @@
 /* pages/my/my.wxss */
 .header-box {
   padding: 32rpx;
-  padding-bottom: 64rpx;
+  padding-bottom: 20rpx;
   display: flex;
   align-items: center;
   color: #333;

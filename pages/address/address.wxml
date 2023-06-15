@@ -1,3 +1,6 @@
+<cu-custom bgColor="bg-yellow" isCustom="{{true}}">
+    <view slot="content"></view>
+</cu-custom>
 <view class="container">
   <view class="header">
  
@@ -7,9 +10,9 @@
       <view class="address-item">
         <view class="address-info">
           <text class="name">{{item.name}}</text>
-          <text class="phone">{{item.phone}}</text>
+          <text class="phone">{{item.tel}}</text>
         </view>
-        <text class="address">{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</text>
+        <text class="address">{{item.province}}{{item.city}}{{item.district}}{{item.street_number}}</text>
         <view class="address-operation">
           <button class="edit" data-index="{{index}}" bindtap="editAddress">编辑</button>
           <button class="delete" data-index="{{index}}" bindtap="deleteAddress">删除</button>

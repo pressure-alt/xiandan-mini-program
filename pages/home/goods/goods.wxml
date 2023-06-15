@@ -50,8 +50,7 @@
                 <view>联系卖家</view>
             </view>
             </view>
-       
-        <view class="bg-yellow submit">立即购买</view>
+               <view class="bg-yellow submit">立即购买</view>
     </view>
 </view>
 </view>

@@ -1,23 +1,16 @@
 Page({
     data: {
       addressList: [
-        {
-          name: "张三",
-          phone: "13512345678",
-          province: "广东省",
-          city: "深圳市",
-          district: "南山区",
-          detail: "高新科技园"
-        },
-        {
-          name: "李四",
-          phone: "13812345678",
-          province: "广东省",
-          city: "广州市",
-          district: "天河区",
-          detail: "珠江新城"
-        }
+     
       ]
+    },
+    onLoad(e){
+        
+      
+        this.setData({
+            addressList:wx.getStorageSync('address')
+        })
+
     },
     addAddress: function () {
       wx.navigateTo({
@@ -26,8 +19,9 @@ Page({
     },
     editAddress: function (e) {
       var index = e.currentTarget.dataset.index;
+   
       wx.navigateTo({
-        url: "../address/new-address?index=" + index
+        url: "../address/new-address?intent=" + JSON.stringify(this.data.addressList[index])+"&index="+index
       });
     },
     deleteAddress: function (e) {
@@ -42,6 +36,8 @@ Page({
             this.setData({
               addressList: addressList
             });
+         
+          wx.setStorageSync('address', addressList)
           }
         }.bind(this)
       });

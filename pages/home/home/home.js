@@ -1,5 +1,4 @@
-const api = require("../../../api/api")
-
+const api = require("../../../api/api");
 const app = getApp()
 var domain = app.globalData.domain
 Page({
@@ -9,7 +8,7 @@ Page({
      */
     data: {
         searchKey: "",
-        searchList:[],
+        searchList: [],
         searchMode: false,
         goodsRecommend: {},
         curPage: 0,
@@ -26,24 +25,7 @@ Page({
             type: 'image',
             url: domain + '/images/pngtree-especially-recommended-image_755484.jpg'
         }],
-        goodsList: [{
-
-            "imgList": ["http://localhost:8088/images/QQ图片20220528211758.jpg"],
-            "info": "买来没穿，不想要了，便宜出",
-            "price": "500",
-            "title": "Nike Dunk HI RETRO 夏季板鞋高帮",
-            "userVo": {
-
-                "nickName": "Sunny",
-                "province": "",
-                "avatarUrl": "https://thirdwx.qlogo.cn/mmopen/vi_32/4zxVLG6k7XrcUY5iaNZ1NgELFrqjvc7TPk98MEKAr7F0gXZYwgw6nB5uEz5onL9m3ugcWOwO7CeuxXhfA9kR5Lg/132",
-                "city": "南昌"
-            },
-            "_openid": "oWl9d47ZJ-b2aJ1WZXvbRgN0WVrg",
-            "address": "南昌市",
-            "time": "2022/05/30 "
-        }
-        ]
+        goodsList: []
     },
 
     /**
@@ -52,17 +34,17 @@ Page({
     onLoad(options) {
 
     },
-//获取商品数据
+    //获取商品数据
     goodsItemDataRequire() {
 
         api.getGoods(this.data.curPage).then(res => {
-            if (res.data.data && res.data.data.length > 0) {
+            if (res.data && res.data.length > 0) {
                 console.log(1);
                 this.setData({
                     curPage: this.data.curPage + 1
                 })
                 this.setData({
-                    goodsList: this.data.goodsList.concat(res.data.data)
+                    goodsList: this.data.goodsList.concat(res.data)
                 })
             } else {
                 this.setData({
@@ -79,24 +61,23 @@ Page({
     },
     searchCancel() {
         this.setData({
-            searchMode: false
+            searchMode: false,
+            searchKey:''
         })
     },
     searchGoods(res) {
         api.searchWithKW(this.data.searchKey).then(res => {
-                if (res.data && res.data.length != 0) {
-                    this.setData({
-                        searchList: res.data.data
-                    })
-                }
-                else{
-                    wx.showToast({
-                      title: 'title',
-                      icon:'error'
-                    })
-                }
+            if (res.data && res.data.data.length != 0) {
+                this.setData({
+                    searchList: res.data.data
+                })
+            } else {
+                wx.showToast({
+                    title: '什么也没搜到',
+                    icon: 'error'
+                })
             }
-        )
+        })
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -109,7 +90,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-//    console.log(this.data.goodsRecommend)
+        //    console.log(this.data.goodsRecommend)
 
     },
 
@@ -135,7 +116,7 @@ Page({
         api.getGoods(0).then(res => {
             this.setData({
                 curPage: 0,
-                goodsList: res.data.data
+                goodsList: res.data
             })
         })
     },
@@ -148,15 +129,15 @@ Page({
             this.goodsItemDataRequire()
     },
     goodDetails(e) {
-
-        let goodinfo = this.data.goodsList[e.currentTarget.dataset.id]
+       
+      
+            let  goodinfo =this.data.searchMode? this.data.searchList[e.currentTarget.dataset.id]: this.data.goodsList[e.currentTarget.dataset.id]
         console.log(goodinfo)
         let a = JSON.stringify(goodinfo)
         wx.navigateTo({
             url: '../goods/goods' + "?info=" + a,
         })
-    }
-    ,
+    },
     NavChange(e) {
         this.setData({
             PageCur: e.currentTarget.dataset.cur

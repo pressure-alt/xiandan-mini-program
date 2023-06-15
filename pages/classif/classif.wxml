@@ -22,8 +22,8 @@
             <view class="cu-list menu-avatar ">
                 <view class="cu-form-group  flex-wrap ">
                     <view class=" card " wx:for="{{item.spec}}" id="spec-{{index}}">
-                        <view class=" " style="align-items: center;">
-                            <image src="{{item.imagePath}}" mode="aspectFit" class="img"></image>
+                        <view class=" " style="align-items: center;"  >
+                            <image src="{{item.imagePath}}" mode="aspectFit" class="img" bindtap="selectCateg" id="{{item.categoryId}}"></image>
                             <view class="text">{{item.title}}</view>
                         </view>
                     </view>

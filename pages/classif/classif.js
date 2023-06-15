@@ -24,7 +24,7 @@ Page({
     });
  api.getCategories().then(res=>{
     this.setData({
-        category:res.data.data
+        category:res.data
     })
     var tmpList=[];
    for (let ca of this.data.category){
@@ -49,39 +49,7 @@ Page({
           list:tmpList
        })
 })
-    // wx.request({
-    //     url:"http://localhost:8088/category/get",
-    //     method:"GET",
-    //     success: (res)=>{
-    //         that.setData({
-    //             category:res.data.data
-    //         })
-    //       },
-    //     fail:(res)=>{console.log(res)},
-    //     timeout:(res)=>{
-    //         console.log(res);
-    //           wx.showToast({
-    //             title: '网络连接超时',
-    //             duration: 0,
-    //             icon: icon,
-    //             image: 'image',
-    //             mask: true,
-    //             success: (res) => {},
-    //             fail: (res) => {},
-    //             complete: (res) => {},
-    //           })
-    //   }
-      
-    //   })
    
-   
-//    db.collection("category").get().then(res=>{
-//        console.log(res)
-//        this.setData({
-//            list:res.data[0].list
-    //    }) 
-    //    console.log(this.data.list)
-//    })
   },
   onReady() {
     wx.hideLoading()
@@ -92,6 +60,9 @@ Page({
       MainCur: e.currentTarget.dataset.id,
       VerticalNavTop: (e.currentTarget.dataset.id - 1) * 50
     })
+  },
+  selectCateg(e){
+console.log(e.currentTarget)
   },
   VerticalMain(e) {
     let that = this;

@@ -2,7 +2,9 @@
 <block>
     <block class="bg">
 
-  <view class="header-box" wx:if="{{hasUserInfo}}" style="background-image: url('/images/user-topbk.png');">
+  <view class="header-box" wx:if="{{hasUserInfo}}" style="background-image:  url('/images/user-topbk.png');">
+
+ 
       <view class="userinfo-avatar">
     <open-data type="userAvatarUrl"></open-data></view>
     <view class="r">

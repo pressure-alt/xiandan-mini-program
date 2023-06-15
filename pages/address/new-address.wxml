@@ -1,42 +1,50 @@
+<cu-custom bgColor="bg-yellow" isCustom="{{true}}">
+    <view slot="content">地址编辑</view>
+</cu-custom>
 <view class="container">
 <view class="page">
-  <view class="header">
-    <text class="title">地址编辑</text>
-  
-  </view>
 
-  <scroll-view class="list" scroll-y="true">
-    <block wx:for="{{addressList}}" wx:key="address.id">
-      <view class="item">
-        <view class="info">
-          <text class="name">{{item.name}}</text>
-          <text class="phone">{{item.phone}}</text>
-        </view>
-        <button class="edit" data-index="{{index}}" bindtap="editAddress">编辑</button>
-        <button class="delete" data-index="{{index}}" bindtap="deleteAddress">删除</button>
-      </view>
-    </block>
-  </scroll-view>
 
   
 </view>
+
     <view class="cu-form-group">
-        <view>{{address_component ? "定位中.." : address_component.city}}</view>
-        <button class="cu-btn bg-yellow round lg shadow" bindtap="getLocation">获取定位</button>
-    </view><view>
+        <view class="title">收货人姓名</view>
+            <input model:value="{{name}}"></input>
+        
+    </view>
     <view class="cu-form-group">
+        <view class="title">收货电话号码</view>
+        <input model:value="{{tel}}"></input>
+        
+    </view>
+    <view class="cu-form-group flex">
+<view class="title"></view> <button class="cu-btn bg-yellow round lg shadow flex-sub" bindtap="getLocation">获取定位</button><picker class="flex-sub" mode="region" bindchange="RegionChange" value="{{region}}" custom-item="{{customItem}}">
+			<view class="picker" >
+				  选择地区
+			</view>
+		</picker>
+
+</view><view class=" flex cu-form-group">
+    <view class=" flex-sub">
         <view class="title">省份</view>
+        {{address_component.province}}
     </view>
-    <view class="cu-form-group">
+    <view class=" flex-sub">
         <view class="title">城市</view>
+        {{address_component.city}}
     </view>
-    <view class="cu-form-group">
+    <view class=" flex-sub">
         <view class="title">县(区)</view>
+        {{address_component.district}}
     </view></view>
+   
     <view class="cu-form-group">
         <view class="title">街道门牌号</view>
+        <textarea>{{address_component.street_number}}</textarea>
     </view>
 </view>
+
 <view class="footer">
     <button class="save" bindtap="saveAddress">保存</button>
     <button class="cancel" bindtap="cancelEdit">取消</button>

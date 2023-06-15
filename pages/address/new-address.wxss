@@ -84,8 +84,9 @@
   
   .save {
     font-size: 14px;
-    color: #fff;
-    background-color: #4787f8;
+    
+    width: 100%;
+    background-color: #ffdb0f;
     border-radius: 4px;
     padding: 6px 12px;
   }
@@ -93,6 +94,7 @@
   .cancel {
     font-size: 14px;
     color: #999;
+    width: 100%;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 6px 12px;

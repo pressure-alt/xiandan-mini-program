@@ -1,5 +1,5 @@
 <cu-custom bgColor="bg-yellow" isCustom="{{true}}">
-    <view slot="content">我卖出的</view>
+    <view slot="content">我的订单</view>
 </cu-custom>
 <scroll-view scroll-x class="bg-white nav">
     <view class="flex text-center">
@@ -15,14 +15,17 @@
     <view class="cu-item ">
     <view class="content" style="margin-top: 5%;">
       <image src="{{item.imgList[0]}}" mode="aspectFill"></image>
-      <view class="desc">
-        <view class=" "> {{item.info}}</view>
+      <view class="desc ">
+      <view class=" flex justify-between">  <view class="text-bold"> {{item.title}}</view>
+        <view class="text-red">{{zone[item.status]}}</view>
+      </view>
+      
         <view class="flex justify-between">
-          <view class=" sm ">{{item.price}}元/件</view>
+          <view class=" sm ">{{item.price}}元</view>
           <view>x10</view>
         </view>
         <view class="flex    justify-end">
-        
+        总计：
         <view class="text-red text-bold">{{item.totalPrice}}元</view>
         </view>
         

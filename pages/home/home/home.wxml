@@ -2,7 +2,6 @@
 </cu-custom>
 <view class="content">
     <view class="cu-bar search bg-white">
-
         <view class="search-form round" bindtap="navToSearch">
             <text class="cuIcon-search"></text>
             <input type="text" placeholder="搜索商品、分类" confirm-type="search" model:value="{{searchKey}}"
@@ -74,8 +73,6 @@
                         </view>
                         <view></view>
                     </view>
-
-
                     <view class="cu-list menu-avatar">
                         <view class="cu-bar">
                             <text class="text-cut text-bold margin-left margin-right text-xl">{{item.title}}</text>
@@ -86,7 +83,6 @@
                                       style="background-image:url({{item.userVo.avatarUrl}});"></view>
                                 <view>
                                     <view class="text-black padding-sm margin-xs ">{{item.userVo.nickName}}
-
                                     </view>
                                     <view class="text-gray padding-left-sm text-sm flex justify-between">
                                         {{item.time}}

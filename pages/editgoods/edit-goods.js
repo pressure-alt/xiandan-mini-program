@@ -1,5 +1,6 @@
 
 const api = require("../../api/api");
+const gapi = require("../../api/goods-api")
 const {
     formatTime
 } = require('../../utils/util');
@@ -10,20 +11,20 @@ Page({
      * 页面的初始数据
      */
     data: {
-        
-         imgSrcList: [],
+        goods:{},
         fineness:['全新','九五新','九成新','有明显使用痕迹'],
         imgList: [],
-        address_component: {}
-
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad(options) {
-
-
+    onLoad(options) {console.log(options)
+        let info=JSON.parse(options.info)
+        
+        this.setData({
+            goods:info
+        })
 
     },
 
@@ -84,13 +85,15 @@ Page({
                 console.log(res)
                 //图片文件大小在5m以内
                 if(res.tempFiles[0].size<=5000000){
-                if (this.data.imgList.length != 0) {
+                if (this.data.goods.giconPath.length!=0) {
                     this.setData({
-                        imgList: this.data.imgList.concat(res.tempFilePaths)
+                        imgList: this.data.imgList.concat(res.tempFilePaths),
+                        "goods.giconPath":this.data.goods.giconPath.concat(res.tempFilePaths)
                     })
                 } else {
                     this.setData({
-                        imgList: res.tempFilePaths
+                        imgList: res.tempFilePaths,
+                        "goods.giconPath":res.tempFilePaths
                     })
                 }
             }else{
@@ -108,14 +111,14 @@ Page({
         });
     },
     DelImg(e) {
-        this.data.imgList.splice(e.currentTarget.dataset.index, 1);
+        this.data.goods.giconPath.splice(e.currentTarget.dataset.index, 1);
         this.setData({
-            imgList: this.data.imgList
+            "goods.giconPath": this.data.goods.giconPath
         })
     },
     checkFormEmpty(res) {
-
-        if (res.detail.value.title.trim() == '' || res.detail.value.info.trim() == '' || res.detail.value.price.trim() == ''||res.detail.value.contact=='' || this.data.imgList.length == 0) {
+        console.log(res)
+        if (res.detail.value.title.trim() == '' || res.detail.value.info.trim() == '' || res.detail.value.price == ''||res.detail.value.contact=='' || this.data.goods.giconPath.length == 0) {
             return true
         }
         return false
@@ -124,20 +127,21 @@ Page({
   async  formSubmit(res) {
         console.log(res)
         let data = {
+            gid:this.data.goods.gid,
             gprofile: res.detail.value.title,
             gdetails: res.detail.value.info,
-            gprice: res.detail.value.price.trim(),
-            gprePrice:res.detail.value.preprice.trim(),
-            contact:res.detail.value.contact,
+            gprice: res.detail.value.price,
+            gprePrice:res.detail.value.preprice?res.detail.value.preprice:null,
+            
             stockNum:res.detail.value.stockNum,
-            glocation:"南昌",
-            ownerId: 101,
             categoryId:1,
-            gstatus:0,
-          fineness:res.detail.value.fineness,
-            giconPath: []
+            glocation:res.detail.value.contact,
+            // gstatus:0,
+            fineness:res.detail.value.fineness,
+            giconPath: this.data.goods.giconPath
         }
         console.log(data)
+        //检查文本是否为空
         if (this.checkFormEmpty(res)) {
             wx.showModal({
                 showCancel: false,
@@ -156,11 +160,15 @@ Page({
                 wx.hideLoading()
               }, 2000)
             console.log(this.data.imgList)
+            data.giconPath.splice(data.giconPath.length-this.data.imgList.length-1,this.data.imgList.length)
             for (let i of this.data.imgList){
-        
+        //上传新增图片
+        console.log(i)
                await api.uploadImgs(i).then(res=>{
                    if(res.statusCode!=200){return}
-                 let result=JSON.parse(res.data) 
+                 //
+                   let result=JSON.parse(res.data) 
+
                     data.giconPath.push(result.data.filePath)
                 })
             }       
@@ -168,9 +176,8 @@ Page({
             data.giconPath=JSON.stringify(data.giconPath)
             wx.hideLoading()
             console.log(data)
-            api.uploadGoods(data).then(res=>{
+            gapi.updateGoods(data).then(res=>{
                 console.log(res)
-                
                     wx.showToast({
                       title: res.message,
                       mask: true,

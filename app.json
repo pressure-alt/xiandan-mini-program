@@ -16,7 +16,8 @@
         "pages/my/my",
         "pages/address/address",
         "pages/address/new-address",
-        "pages/order/orderdetail"
+        "pages/order/orderdetail",
+        "pages/editgoods/edit-goods"
     ],
     "tabBar": {
         "color": "#000000",

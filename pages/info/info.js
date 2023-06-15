@@ -1,58 +1,62 @@
-const WXAPI = require('apifm-wxapi')
-const TOOLS = require('../../utils/tools.js')
-const AUTH = require('../../utils/auth')
-const api = require('../../api/api.js')
 
+const api = require('../../api/api.js')
+const sapi=require('../../api/shoppingcart-api')
 const app = getApp()
 
 Page({
     data: {
-        shopcart: true,
-        shoppingCarInfo: [{
-            address: "北京",
-categoryId: 17,
-fineness: "几乎全新",
-id: 100000018,
-imgList:[
-"http://localhost:8088/images/1680766979175.jpg", "http://localhost:8088/images/1680766983508.jpg", "http://localhost:8088/images/1680766995160.jpg"]
-,
-info: "小米笔记本xiaomi book pro X 14，i7 11370H, rtx3050↵2022年初购买的笔记本，14寸顶配。↵A面装包里有一处划痕。↵降价求速出了。",
-ownerId: null,
-prePrice: 7000,
-price: 4500,
-stockNum: 1,
-time: "23/04/06",
-title: "小米笔记本xiaomi book pro X 14",
-quantity:1,
-userVo:{
-avatarUrl: "http://auth.meita.org/Baby",
-nickName: "rinkoyama3",
-userId: 1,
-vx: null}
+        querry:{
+            userId:101,
+            gid:null,
+            num:null
         },
-        {
-            address: "北京",
-categoryId: 17,
-fineness: "几乎全新",
-id: 100000019,
-imgList:[
-"http://localhost:8088/images/1680766979175.jpg", "http://localhost:8088/images/1680766983508.jpg", "http://localhost:8088/images/1680766995160.jpg"]
-,
-info: "小米笔记本xiaomi book pro X 14，i7 11370H, rtx3050↵2022年初购买的笔记本，14寸顶配。↵A面装包里有一处划痕。↵降价求速出了。",
-ownerId: null,
-prePrice: 7000,
-price: 4222.12,
-stockNum: 6,
-time: "23/04/06",
-title: "小米笔记本xiaomi book pro X 14",
-quantity:1,
-userVo:{
-avatarUrl: "http://auth.meita.org/Baby",
-nickName: "rinkoyama3",
-userId: 1,
-vx: null}
-        }
-        ],
+        shopcart: true,
+//         shoppingCarInfo: [{
+//             address: "北京",
+// categoryId: 17,
+// fineness: "几乎全新",
+// id: 100000018,
+// imgList:[
+// "http://localhost:8088/images/1680766979175.jpg", "http://localhost:8088/images/1680766983508.jpg", "http://localhost:8088/images/1680766995160.jpg"]
+// ,
+// info: "小米笔记本xiaomi book pro X 14，i7 11370H, rtx3050↵2022年初购买的笔记本，14寸顶配。↵A面装包里有一处划痕。↵降价求速出了。",
+// ownerId: null,
+// prePrice: 7000,
+// price: 4500,
+// stockNum: 1,
+// quantity:1,
+// time: "23/04/06",
+// title: "小米笔记本xiaomi book pro X 14",
+// userVo:{
+// avatarUrl: "http://auth.meita.org/Baby",
+// nickName: "rinkoyama3",
+// userId: 1,
+// vx: null}
+//         },
+//         {
+//             address: "北京",
+// categoryId: 17,
+// fineness: "几乎全新",
+// id: 100000019,
+// imgList:[
+// "http://localhost:8088/images/1680766979175.jpg", "http://localhost:8088/images/1680766983508.jpg", "http://localhost:8088/images/1680766995160.jpg"]
+// ,
+// info: "小米笔记本xiaomi book pro X 14，i7 11370H, rtx3050↵2022年初购买的笔记本，14寸顶配。↵A面装包里有一处划痕。↵降价求速出了。",
+// ownerId: null,
+// prePrice: 7000,
+// price: 4222.12,
+// quantity:1,
+// stockNum: 6,
+// time: "23/04/06",
+// title: "小米笔记本xiaomi book pro X 14",
+
+// userVo:{
+// avatarUrl: "http://auth.meita.org/Baby",
+// nickName: "rinkoyama3",
+// userId: 1,
+// vx: null}
+//         }
+//         ],
         selected:[false],
         saveHidden: true,
         allSelect:false,
@@ -83,7 +87,7 @@ minusQuantity: function (event) {
       }
     }
     this.setData({
-      shoppingCarInfo: goods
+     shoppingCarInfo: goods,
     });
     this.addPrice();
   },
@@ -107,6 +111,7 @@ minusQuantity: function (event) {
     }
     this.setData({
       shoppingCarInfo: goods,
+ 
     });
     this.addPrice()
   },
@@ -145,7 +150,7 @@ minusQuantity: function (event) {
         this.setData({
             selected:selectArr
         })
-        
+        sapi.listShoppingcart()
         // wx.showLoading({
         //     title: '正在加载',
             
@@ -164,15 +169,21 @@ minusQuantity: function (event) {
         //     })
         // })
     },
+    onPullDownRefresh(){
+        this.getShoppingCartInfo();
+    },
     getShoppingCartInfo(){
         let user = wx.getStorageSync("user")
         let openId=user.openid
        
             api.getShoppingCartInfo(openId).then(res=>{
+               for(let i in res.data){
+                    res.data[i].imgList=JSON.parse( res.data[i].imgList)
+                }
                 this.setData({
-                    shoppingCarInfo:res.data
+                   shoppingCarInfo:res.data
                 })
-                
+                console.log(res)
                 wx.hideLoading();
             })
             
@@ -203,12 +214,7 @@ minusQuantity: function (event) {
     },
     async delItemDone(key) {
         let goods=this.data.shoppingCarInfo
-        
         //api.deleteCartItem()
-
-
-
-
     },
 
 
@@ -223,8 +229,6 @@ async  radioClick(e) {
         } else {
             item[index] = true
         }      
-
-       
         this.setData({
             selected:item,
         });

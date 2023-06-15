@@ -9,21 +9,30 @@
     </view>
 </scroll-view>
 <van-empty wx:if="{{ !orderList }}" description="暂无订单" />
-<view class="order-list" hidden="{{orderList ? false : true}}" >
-    <view  wx:for="{{orderList}}" wx:if="{{TabCur==0||TabCur==item.status}}">
+<view class="order-list" hidden="{{goodsList ? false : true}}" >
+    <view  wx:for="{{goodsList}}" wx:if="{{TabCur==item.gstatus||TabCur==0}}">
     <view class="cu-card article">
     <view class="cu-item ">
     <view class="content" style="margin-top: 5%;">
-      <image src="{{item.imgList[0]}}" mode="aspectFill"></image>
+      <image src="{{item.giconPath[0]}}" mode="aspectFill"></image>
       <view class="desc">
-        <view class=" "> {{item.info}}</view>
+        <view class=" flex justify-between">  <view class="text-bold"> {{item.gprofile}}</view>
+        <view class="text-red">{{status[item.gstatus+1]}}</view>
+      </view>
         <view class="flex justify-between">
-          <view class=" sm ">{{item.price}}元/件</view>
-          <view>x10</view>
+          <view class=" sm text-red">{{item.gprice}}元</view>
+          <view>x{{item.stockNum}}</view>
         </view>
-        <view class="flex    justify-end">
+        <view class="flex     justify-between">
         
-        <view class="text-red text-bold">{{item.totalPrice}}元</view>
+        <view class="cu-btn sm round bg-red" bindtap="deleteGoods" data-id="{{item.gid}}">删除</view>
+        <view class="cu-btn sm round line-black" bindtap="up" data-id="{{item.gid}}">上架</view>
+        
+        <view class="cu-btn sm round line-black" bindtap="review" data-id="{{item.gid}}" wx:if="{{item.gstatus==1}}">审核详情</view>
+        <view class="cu-btn sm round line-black" bindtap="down"  data-id="{{item.gid}}" wx:if="{{item.gstatus==2}}">下架</view>
+        <view class="cu-btn sm round line-black" bindtap="down" data-id="{{item.gid}}" wx:if="{{item.gstatus==3}}">填写单号</view>
+        <view class="cu-btn sm round line-black" bindtap="down" data-id="{{item.gid}}" wx:if="{{item.gstatus==4}}">查看订单</view>
+        <view class="cu-btn sm round" bindtap="edit" data-id="{{item.gid}}">编辑</view>
         </view>
         
       </view></view>

@@ -7,44 +7,41 @@ module.exports = {
     getUserInfo: getUserInfo,
     searchWithCategoryId:searchWithCategoryId,
     searchWithKW:searchWithKW,
-    getShoppingCartInfo:getShoppingCartInfo
+    getShoppingCartInfo:getShoppingCartInfo,
+    domain:getDomain,
 }
 
-var domain = "http://localhost:8088"
-
-function getCategories() {
-
+const domain = "http://localhost:8088"
+function getDomain(){
+    return domain
+}
+var request = function request(url,  method, data) {
+    var _url = domain  + url;
+    var header = {
+      'Content-Type': 'application/json'
+    };
     return new Promise(function (resolve, reject) {
-        wx.request({
-            url: domain + "/category/get",
-            method: "GET",
-            success: (res) => {
-                resolve(res)
-            },
-            fail: (res) => {
-                reject(res)
-            },
-            timeout: (res) => {
-                console.log(res);
-                wx.showToast({
-                    title: '网络连接超时',
-                    duration: 0,
-                    icon: icon,
-                    image: 'image',
-                    mask: true,
-                    success: (res) => {
-                    },
-                    fail: (res) => {
-                    },
-                    complete: (res) => {
-                    },
-                })
-            }
-
-        })
-    })
-
-
+      wx.request({
+        url: _url,
+        method: method,
+        data: data,
+        header: header,
+        success: function success(request) {
+            console.log(request)
+          resolve(request.data);
+        },
+        fail: function fail(error) {
+            console.log(error)
+          reject(error);
+        },
+        complete: function complete(aaa) {
+          // 加载完成
+        }
+      });
+    });
+  };
+function getCategories() {
+    return  request("/category/get","GET","")
 }
 
 function getUserAddress() {
@@ -53,10 +50,8 @@ function getUserAddress() {
             url: domain + 'user/address',
             method: "POST",
             data: {
-
                 "userId": "122"
             },
-
             success: (res) => {
                 console.log(res)
                 resolve(res)
@@ -74,61 +69,14 @@ function getUserAddress() {
 
 }
 
-function uploadGoods(good) {
+function uploadGoods(goods) {
     var result;
-    return new Promise(function (resolve, reject) {
-        wx.request({
-            url: domain + '/goods/upload',
-            method: "POST",
-            data: {
-                gid: 0,
-                gprofile: "空空如也",
-                gprice: 9.99,
-                gprePrice: 100,
-                giconPath: "no path",
-                gdetails: "details",
-                glocation: "ad",
-                ownerId: 0,
-                fineness: "95",
-                stockNum: 10,
-                categoryId: 11,
-                gstatus: 0,
-
-            },
-            success: function (res) {
-                console.log(res)
-            },
-            fail: function (res) {
-                console.log(res)
-            },
-            timeout: function (res) {
-                console.log("请求超时")
-                console.log(res)
-            }
-        })
-    })
+    return request("/goods/upload","POST",goods)
 }
 
 function getGoods(page) {
-    return new Promise(function (resolve, reject) {
-        wx.request({
-            url: domain + '/goods/list',
-            method: "GET",
-            data: {page: page},
-            success: function (res) {
-                console.log(res)
-                resolve(res)
-            },
-            fail: function (res) {
-                console.log(res)
-                reject(res)
-            },
-            timeout: function (res) {
-                console.log("请求超时")
-                console.log(res)
-            }
-        })
-    })
+    return request("/goods/list","GET",{page:page})
+    
 }
 
 /**

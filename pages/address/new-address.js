@@ -7,15 +7,36 @@ Page({
      * 页面的初始数据
      */
     data: {
+        name:"",
+        tel:"",
+        region:[],
         location: '',
-        address_component: {}
+        address_component: {
+            
+        }
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-
+       if(options.intent){
+        let intent= JSON.parse(options.intent);
+        this.setData({
+            index:options.index,
+            
+            address_component:{
+                name:intent.name,
+                tel:intent.tel,
+                province:intent.province,
+                city:intent.city,
+                district:intent.district,
+                street_number:intent.street_number
+            }
+        })
+    }
+    else
+    this.getLocation()
     },
 
     /**
@@ -68,7 +89,10 @@ Page({
     },
     RegionChange: function(e) {
         this.setData({
-          region: e.detail.value
+          address_component: {province:e.detail.value[0],
+                            city:e.detail.value[1],
+                            district:e.detail.value[2]
+        }
         })
       },
       getLocation() {
@@ -96,7 +120,11 @@ Page({
                         //可以通过外面将this赋值给其它变量,也可通过promise二次封装,避免回调地狱
 
                         that.setData({
-                            address_component: res.result.address_component
+                            "address_component.province": res.result.address_component.province,
+                            "address_component.city":res.result.address_component.city,
+                            "address_component.district":res.result.address_component.district,
+                            "address_component.street_number":res.result.address_component.street_number
+                           
                         })
                         wx.setStorageSync('location', res)
                     }
@@ -105,29 +133,8 @@ Page({
             }
         })
     },
-    getAddressList: function() {
-        // 从云端获取地址列表
-        wx.cloud.callFunction({
-          name: 'getAddressList',
-          success: res => {
-            console.log('[getAddressList] success', res.result);
-            this.setData({
-              addressList: res.result.data
-            });
-          },
-          fail: err => {
-            console.error('[getAddressList] fail', err);
-          }
-        })
-      },
-    
-      addAddress: function() {
-        // 跳转到地址编辑页面
-        wx.navigateTo({
-          url: '/pages/addressEdit/addressEdit'
-        });
-      },
-    
+   
+   
       editAddress: function(e) {
         // 获取要编辑的地址索引
         var index = e.currentTarget.dataset.index;
@@ -138,44 +145,25 @@ Page({
           url: '/pages/addressEdit/addressEdit?id=' + address._id + '&name=' + address.name + '&phone=' + address.phone + '&address=' + address.address
         });
       },
-    
-      deleteAddress: function(e) {
-        // 获取要删除的地址索引
-        var index = e.currentTarget.dataset.index;
-        // 获取要删除的地址信息
-        var address = this.data.addressList[index];
-        // 显示确认删除对话框
-        wx.showModal({
-          title: '确认删除',
-          content: '确定要删除地址 ' + address.name + ' 吗？',
-          success: res => {
-            if (res.confirm) {
-              // 删除地址
-              this.doDeleteAddress(address._id);
-            }
-          }
-        });
-      },
-    
-      doDeleteAddress: function(id) {
-        // 从云端删除地址
-        wx.cloud.callFunction({
-          name: 'deleteAddress',
-          data: {
-            id: id
-          },
-          success: res => {
-            console.log('[doDeleteAddress] success', res.result);
-            // 更新地址列表
-            this.getAddressList();
-          },
-          fail: err => {
-            console.error('[doDeleteAddress] fail', err);
-          }
-        })
-      },
-    
+          
       saveAddress: function() {
+          let address=wx.getStorageSync('address');
+          console.log(address)
+          let index=this.data.index;
+          this.data.address_component.name=this.data.name;
+          this.data.address_component.tel=this.data.tel;
+          //修改模式下并且有缓存
+            if(index&&address){ 
+             console.log("update")
+             address[index]=this.data.address_component;
+          wx.setStorageSync('address', address)
+        }else{
+            console.log("new")
+            
+            address.push(this.data.address_component)
+            
+            wx.setStorageSync('address', address)
+        }
         // 跳转回到地址管理页面
         wx.navigateBack({
           delta: 1
